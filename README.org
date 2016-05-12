@@ -1,0 +1,88 @@
+* xmlgen
+  xmlgen is a hy library that provides macros and functions for generating xml.
+** Usage
+   The xmlgen macro requires a node name. Optionally, it can be given
+   a dictionary of node attributes and then a text string or one or more
+   expressions. The attribute dictionary can also be used to specify
+   the tag's name-space by using the key "&ns". The namespace value
+   can be a string or a list of strings.
+   #+BEGIN_SRC hy
+(xmlgen "node")
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<node />
+   #+END_SRC
+
+   #+BEGIN_SRC hy
+(xmlgen "node" {})
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<node />
+   #+END_SRC
+
+   #+BEGIN_SRC hy
+(xmlgen "node" {"&ns" "n"})
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<n:node />
+   #+END_SRC
+
+   #+BEGIN_SRC hy
+(xmlgen "node" {"&ns" ["n" "x"]})
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<n:x:node />
+   #+END_SRC
+
+   #+BEGIN_SRC hy
+(xmlgen "node" {"&ns" ["n" "x"]} "")
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<n:x:node></n:x:node>
+   #+END_SRC
+
+   #+BEGIN_SRC hy
+(xmlgen "node" {"&ns" ["n" "x"] "attrib" "val"} "Text node.")
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<n:x:node attrib="val">Text node.</n:x:node>
+   #+END_SRC
+
+   #+BEGIN_SRC hy
+(xmlgen "node" {"attrib" "val"} (xmlgen "a") (xmlgen "b"))
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<node attrib="val"><a /><b /></node>
+   #+END_SRC
+
+   Mixing text and tags is not allowed, so
+   #+BEGIN_SRC hy
+(xmlgen "node" {"attrib" "val"} "a" (xmlgen "b"))
+   #+END_SRC
+   will not produce the desired output.
+   #+BEGIN_SRC html
+<node attrib="val">a<b /></node>
+   #+END_SRC
+   is invalid XML. In this case, the latter nodes will be ignored. If
+   a tag is the first child element, then all subsequent text nodes
+   are ignored.
+
+   xmlgen requires the variable xmlgen-buffer to be defined at run-time, which
+   specifies where to print.
+
+   The xmlgen module provides the function, declare, for creating an
+   xml declaration statement.
+   #+BEGIN_SRC hy
+(declare :version "1.0" :encoding "utf-8" :standalone True :buffer sys.--stdout--)
+   #+END_SRC
+   will print
+   #+BEGIN_SRC html
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+   #+END_SRC

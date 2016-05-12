@@ -1,0 +1,156 @@
+(import [xmlgen-helpers] [xmlgen])
+
+(require xmlgen)
+(defmacro xcard-vcards [&rest body]
+  `(xmlgen "vcards" ~@(list body)))
+
+(defmacro xcard-vcard [&rest body]
+  `(xmlgen "vcard" ~@(list body)))
+
+(defmacro xcard-group [&rest body]
+  `(xmlgen "group" ~@(list body)))
+
+(defmacro xcard-adr [&rest body]
+  `(xmlgen "adr" ~@(list body)))
+
+(defmacro xcard-anniversary [&rest body]
+  `(xmlgen "anniversary" ~@(list body)))
+
+(defmacro xcard-bday [&rest body]
+  `(xmlgen "bday" ~@(list body)))
+
+(defmacro xcard-caladruri [&rest body]
+  `(xmlgen "caladruri" ~@(list body)))
+
+(defmacro xcard-additional [&rest body]
+  `(xmlgen "additional" ~@(list body)))
+(defmacro xcard-altid [&rest body]
+  `(xmlgen "altid" ~@(list body)))
+(defmacro xcard-boolean [&rest body]
+  `(xmlgen "boolean" ~@(list body)))
+(defmacro xcard-calscale [&rest body]
+  `(xmlgen "calscale" ~@(list body)))
+(defmacro xcard-caluri [&rest body]
+  `(xmlgen "caluri" ~@(list body)))
+(defmacro xcard-categories [&rest body]
+  `(xmlgen "categories" ~@(list body)))
+(defmacro xcard-clientpidmap [&rest body]
+  `(xmlgen "clientpidmap" ~@(list body)))
+(defmacro xcard-code [&rest body]
+  `(xmlgen "code" ~@(list body)))
+(defmacro xcard-country [&rest body]
+  `(xmlgen "country" ~@(list body)))
+(defmacro xcard-date [&rest body]
+  `(xmlgen "date" ~@(list body)))
+(defmacro xcard-date-time [&rest body]
+  `(xmlgen "date-time" ~@(list body)))
+(defmacro xcard-email [&rest body]
+  `(xmlgen "email" ~@(list body)))
+(defmacro xcard-ext [&rest body]
+  `(xmlgen "ext" ~@(list body)))
+(defmacro xcard-fburl [&rest body]
+  `(xmlgen "fburl" ~@(list body)))
+(defmacro xcard-float [&rest body]
+  `(xmlgen "float" ~@(list body)))
+(defmacro xcard-fn [&rest body]
+  `(xmlgen "fn" ~@(list body)))
+(defmacro xcard-gender [&rest body]
+  `(xmlgen "gender" ~@(list body)))
+(defmacro xcard-geo [&rest body]
+  `(xmlgen "geo" ~@(list body)))
+(defmacro xcard-given [&rest body]
+  `(xmlgen "given" ~@(list body)))
+(defmacro xcard-identity [&rest body]
+  `(xmlgen "identity" ~@(list body)))
+(defmacro xcard-impp [&rest body]
+  `(xmlgen "impp" ~@(list body)))
+(defmacro xcard-integer [&rest body]
+  `(xmlgen "integer" ~@(list body)))
+(defmacro xcard-key [&rest body]
+  `(xmlgen "key" ~@(list body)))
+(defmacro xcard-kind [&rest body]
+  `(xmlgen "kind" ~@(list body)))
+(defmacro xcard-label [&rest body]
+  `(xmlgen "label" ~@(list body)))
+(defmacro xcard-lang [&rest body]
+  `(xmlgen "lang" ~@(list body)))
+(defmacro xcard-language [&rest body]
+  `(xmlgen "language" ~@(list body)))
+(defmacro xcard-language-tag [&rest body]
+  `(xmlgen "language-tag" ~@(list body)))
+(defmacro xcard-locality [&rest body]
+  `(xmlgen "locality" ~@(list body)))
+(defmacro xcard-logo [&rest body]
+  `(xmlgen "logo" ~@(list body)))
+(defmacro xcard-mediatype [&rest body]
+  `(xmlgen "mediatype" ~@(list body)))
+(defmacro xcard-member [&rest body]
+  `(xmlgen "member" ~@(list body)))
+(defmacro xcard-n [&rest body]
+  `(xmlgen "n" ~@(list body)))
+(defmacro xcard-nickname [&rest body]
+  `(xmlgen "nickname" ~@(list body)))
+(defmacro xcard-note [&rest body]
+  `(xmlgen "note" ~@(list body)))
+(defmacro xcard-org [&rest body]
+  `(xmlgen "org" ~@(list body)))
+(defmacro xcard-parameters [&rest body]
+  `(xmlgen "parameters" ~@(list body)))
+(defmacro xcard-photo [&rest body]
+  `(xmlgen "photo" ~@(list body)))
+(defmacro xcard-pid [&rest body]
+  `(xmlgen "pid" ~@(list body)))
+(defmacro xcard-pobox [&rest body]
+  `(xmlgen "pobox" ~@(list body)))
+(defmacro xcard-pref [&rest body]
+  `(xmlgen "pref" ~@(list body)))
+(defmacro xcard-prefix [&rest body]
+  `(xmlgen "prefix" ~@(list body)))
+(defmacro xcard-prodid [&rest body]
+  `(xmlgen "prodid" ~@(list body)))
+(defmacro xcard-region [&rest body]
+  `(xmlgen "region" ~@(list body)))
+(defmacro xcard-related [&rest body]
+  `(xmlgen "related" ~@(list body)))
+(defmacro xcard-rev [&rest body]
+  `(xmlgen "rev" ~@(list body)))
+(defmacro xcard-role [&rest body]
+  `(xmlgen "role" ~@(list body)))
+(defmacro xcard-sex [&rest body]
+  `(xmlgen "sex" ~@(list body)))
+(defmacro xcard-sort-as [&rest body]
+  `(xmlgen "sort-as" ~@(list body)))
+(defmacro xcard-sound [&rest body]
+  `(xmlgen "sound" ~@(list body)))
+(defmacro xcard-source [&rest body]
+  `(xmlgen "source" ~@(list body)))
+(defmacro xcard-sourceid [&rest body]
+  `(xmlgen "sourceid" ~@(list body)))
+(defmacro xcard-street [&rest body]
+  `(xmlgen "street" ~@(list body)))
+(defmacro xcard-suffix [&rest body]
+  `(xmlgen "suffix" ~@(list body)))
+(defmacro xcard-surname [&rest body]
+  `(xmlgen "surname" ~@(list body)))
+(defmacro xcard-tel [&rest body]
+  `(xmlgen "tel" ~@(list body)))
+(defmacro xcard-text [&rest body]
+  `(xmlgen "text" ~@(list body)))
+(defmacro xcard-time [&rest body]
+  `(xmlgen "time" ~@(list body)))
+(defmacro xcard-timestamp [&rest body]
+  `(xmlgen "timestamp" ~@(list body)))
+(defmacro xcard-title [&rest body]
+  `(xmlgen "title" ~@(list body)))
+(defmacro xcard-type [&rest body]
+  `(xmlgen "type" ~@(list body)))
+(defmacro xcard-tz [&rest body]
+  `(xmlgen "tz" ~@(list body)))
+(defmacro xcard-uid [&rest body]
+  `(xmlgen "uid" ~@(list body)))
+(defmacro xcard-uri [&rest body]
+  `(xmlgen "uri" ~@(list body)))
+(defmacro xcard-url [&rest body]
+  `(xmlgen "url" ~@(list body)))
+(defmacro xcard-utc-offset [&rest body]
+  `(xmlgen "utc-offset" ~@(list body)))
