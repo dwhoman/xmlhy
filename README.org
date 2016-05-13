@@ -4,7 +4,7 @@
   producing xml.
 ** Usage
    xmlhy macros print to a buffer specified by the free variable
-   `xmlhy-buffer', so before calling the result of an xmlhy macro the
+   `xmlhy-buffer', so before calling the result of an xmlhy macro, the
    xmlhy-buffer variable `xmlhy-buffer' must be set. xmlhy provides
    the class WritableObject. The value of `xmlhy-buffer' can be set to
    a WritableObject instance. To print directly to the screen, set
@@ -120,7 +120,6 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes'?>
    #+END_SRC
 
-   New instructions can be created using the function 
 ** Creating tags
    xmlhy.hy provides the macro `xmlhy-tag' to easily create new
    tags. It is a macro generating macro.
@@ -155,4 +154,4 @@
      allowing the user to change its value; while double-quote is a
      global variable and does not always allow the user to change its
      value.  xmlhy-buffer does not have a default value.  A global
-     variable would be preferable.
+     variable might be preferable.
