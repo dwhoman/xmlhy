@@ -4,11 +4,11 @@ SHELL = /bin/sh
 %: %.hy
 	hyc $<
 
-all: xmlgen_helpers xmlgen rss mathml atom svg xcard xhtml
+all: xmlhy_util xmlhy rss mathml atom svg xcard xhtml
 
 .SECONDEXPANSION:
-xmlgen_helpers: $$@.hy
-xmlgen: $$@.hy
+xmlhy_util: $$@.hy
+xmlhy: $$@.hy
 rss: $$@.hy
 mathml: $$@.hy
 atom: $$@.hy

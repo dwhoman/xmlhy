@@ -1,15 +1,15 @@
-(import [xmlgen-helpers] [xmlgen])
-(require xmlgen)
+(import [xmlhy-util] [xmlhy])
+(require xmlhy)
 
 ;;; SVG 1.1 elements
 
-(defmacro xmlgen-tag [tag-ns-name]
+(defmacro xmlhy-tag [tag-ns-name]
   (with-gensyms [name]
     `(defmacro ~tag-ns-name [&rest body]
        (defun ~tag-ns-name [])
        (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
-         `(xmlgen ~~name ~@(list body))))))
-(defreader ^ [tag-ns-name] `(xmlgen-tag ~tag-ns-name))
+         `(xmlhy ~~name ~@(list body))))))
+(defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
 #^svg-a
 #^svg-altGlyph
 #^svg-altGlyphDef

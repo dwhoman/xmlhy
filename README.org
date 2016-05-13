@@ -1,13 +1,31 @@
-* xmlgen
-  xmlgen is a hy library that provides macros and functions for generating xml.
+* xmlhy
+  xmlhy is a hy library that provides macros and functions for
+  generating xml. xmlhy uses macros to generate print statements for
+  producing xml.
 ** Usage
-   The xmlgen macro requires a node name. Optionally, it can be given
-   a dictionary of node attributes and then a text string or one or more
-   expressions. The attribute dictionary can also be used to specify
-   the tag's name-space by using the key "&ns". The namespace value
-   can be a string or a list of strings.
+   xmlhy macros print to a buffer specified by the free variable
+   `xmlhy-buffer', so before calling the result of an xmlhy macro the
+   xmlhy-buffer variable `xmlhy-buffer' must be set. xmlhy provides
+   the class WritableObject. The value of `xmlhy-buffer' can be set to
+   a WritableObject instance. To print directly to the screen, set
+   `xmlhy-buffer' to sys.--stdout--.  Attribute values are single
+   quoted by default, but double quotes can be produced by setting
+   xmlhy-util.double-quote to True. The output is not formatted,
+   save for explicit newlines, tabs, and spaces.  The output can be
+   piped into another program such as xmlstarlet's `xml fo'.
+*** xmlhy
+    xmlhy is the main xml generating macro.  The xmlhy macro requires
+    a node name. Optionally, it can be given a dictionary of node
+    attributes and then a text string or one or more expressions for
+    the body. 
+    #+BEGIN_SRC hy
+(xmlhy "name" {attributes}? body*)
+    #+END_SRC
+    The attribute dictionary can also be used to specify the tag's
+    name-space by using the key "&ns". The namespace value can be a
+    string or a list of strings.
    #+BEGIN_SRC hy
-(xmlgen "node")
+(xmlhy "node")
    #+END_SRC
    becomes
    #+BEGIN_SRC html
@@ -15,7 +33,7 @@
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlgen "node" {})
+(xmlhy "node" {})
    #+END_SRC
    becomes
    #+BEGIN_SRC html
@@ -23,7 +41,7 @@
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlgen "node" {"&ns" "n"})
+(xmlhy "node" {"&ns" "n"})
    #+END_SRC
    becomes
    #+BEGIN_SRC html
@@ -31,7 +49,7 @@
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlgen "node" {"&ns" ["n" "x"]})
+(xmlhy "node" {"&ns" ["n" "x"]})
    #+END_SRC
    becomes
    #+BEGIN_SRC html
@@ -39,50 +57,102 @@
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlgen "node" {"&ns" ["n" "x"]} "")
+(xmlhy "node" {"&ns" ["n" "x"]} "")
    #+END_SRC
    becomes
    #+BEGIN_SRC html
-<n:x:node></n:x:node>
+<n:x:node ></n:x:node>
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlgen "node" {"&ns" ["n" "x"] "attrib" "val"} "Text node.")
+(xmlhy "node" {"&ns" ["n" "x"] "attrib" "val"} "Text node.")
    #+END_SRC
    becomes
    #+BEGIN_SRC html
-<n:x:node attrib="val">Text node.</n:x:node>
+<n:x:node attrib='val'>Text node.</n:x:node>
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlgen "node" {"attrib" "val"} (xmlgen "a") (xmlgen "b"))
+(xmlhy "node" {"attrib" "val"} (xmlhy "a") (xmlhy "b"))
    #+END_SRC
    becomes
    #+BEGIN_SRC html
-<node attrib="val"><a /><b /></node>
+<node attrib='val'><a /><b /></node>
    #+END_SRC
 
    Mixing text and tags is not allowed, so
    #+BEGIN_SRC hy
-(xmlgen "node" {"attrib" "val"} "a" (xmlgen "b"))
+(xmlhy "node" {"attrib" "val"} "a" (xmlhy "b"))
    #+END_SRC
-   will not produce the desired output.
+   will not produce the likely desired output.
    #+BEGIN_SRC html
-<node attrib="val">a<b /></node>
+<node attrib='val'>a<b /></node>
    #+END_SRC
    is invalid XML. In this case, the latter nodes will be ignored. If
-   a tag is the first child element, then all subsequent text nodes
-   are ignored.
-
-   xmlgen requires the variable xmlgen-buffer to be defined at run-time, which
-   specifies where to print.
-
-   The xmlgen module provides the function, declare, for creating an
-   xml declaration statement.
+   a tag is the first body argument, then all subsequent strings
+   are ignored; and if a string is the first body argument, then the
+   rest of the &rest arguments are ignored.
+*** sanitize
+    A non-destructive function for replacing <>"'& string characters
+    with there XML names.
+*** xmlhy-comment
+    xmlhy-comment generates XML comments. This can be used for
+    creating Internet Explorer conditional statements. Similar to
+    xmlhy, it can take either or string or one or more lisp statements.
+*** xmlhy-print
+    Used for printing dynamically generated strings to
+    xmlhy-buffer. Takes a lisp expression that evaluates to a string.
+*** newlines, tabs, and spaces
+    xmlhy-crlf, xmlhy-tab, and xmlhy-space are used to generate print
+    statements to produce newlines, tabs, and spaces respectively,
+    which can be used for adding meaningful white-space between XML
+    tags. These functions take a single, optional natural number
+    argument specifying how many newlines, tabs, or spaces to print.
+*** xml instructions
+   The xmlhy module provides the macro, xmlhy-declare, for creating an
+   xml declaration statement, and the macro, xmlhy-stylesheet, for
+   creating xml stylesheet statements.
    #+BEGIN_SRC hy
-(declare :version "1.0" :encoding "utf-8" :standalone True :buffer sys.--stdout--)
+(xmlhy-declare "1.0" "utf-8" True)
    #+END_SRC
    will print
    #+BEGIN_SRC html
 <?xml version='1.0' encoding='utf-8' standalone='yes'?>
    #+END_SRC
+
+   New instructions can be created using the function 
+** Creating tags
+   xmlhy.hy provides the macro `xmlhy-tag' to easily create new
+   tags. It is a macro generating macro.
+
+   The expression
+   #+BEGIN_SRC hy
+(xmlhy-tag xhtml-html)
+   #+END_SRC
+   evaluates to
+   #+BEGIN_SRC hy
+(defmacro xhtml-html [&rest body]
+  `(xmlhy "html" ~@(list body)))
+   #+END_SRC
+
+   This can be simplified using a reader macro:
+   #+BEGIN_SRC hy
+(defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
+#^xhtml-html
+   #+END_SRC
+** Bugs
+   - Currently using Emacs naming convention for macros, not sure if
+     there is a more idiomatic way of naming macros that prevents
+     collisions.
+   - Problems importing functions. Maybe an instance of
+     https://github.com/hylang/hy/issues/589
+     - Cannot always import xmlhy-tag from xmlhy.hy without having
+       xmlhy.pyc in the same directory as the code that is calling it.
+     - Problems setting xmlhy.xmlhy-util.double-quote.
+       - Files have to be in the same directory.
+       - Only works for the top nodes, see example_rss_1.hy
+   - xmlhy-buffer is a free variable and appears to work everywhere,
+     allowing the user to change its value; while double-quote is a
+     global variable and does not always allow the user to change its
+     value.  xmlhy-buffer does not have a default value.  A global
+     variable would be preferable.

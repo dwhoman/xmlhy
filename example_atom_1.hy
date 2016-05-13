@@ -1,12 +1,14 @@
-(import [xmlgen.xmlgen :as x]
-        [xmlgen.xmlgen-helpers]
-        [xmlgen.atom]
+(import [xmlhy.xmlhy :as x]
+        [xmlhy.xmlhy-util]
+        [xmlhy.atom]
+        [xmlhy.xhtml]
         [sys])
-(require xmlgen.xmlgen xmlgen.atom)
+(require xmlhy.xmlhy xmlhy.atom xmlhy.xhtml)
 ;; produces example from https://tools.ietf.org/html/rfc4287
 
-(def xmlgen-buffer sys.--stdout--)
-(xmlgen-declare 1.0 "utf-8")
+(def xmlhy-buffer sys.--stdout--)
+(setv xmlhy.xmlhy-util.double-quote True)
+(xmlhy-declare 1.0 "utf-8")
 (atom-feed
  {"xmlns" "http://www.w3.org/2005/Atom"}
  (atom-title {"type" "text"} "dive into mark")
@@ -44,8 +46,8 @@ went into making this effortless")
    {"type" "xhtml" "xml:lang" "en" "xml:base" "http://diveintomark.org/"}
    (atom-div
     {"xmlns" "http://www.w3.org/1999/xhtml"}
-    (atom-p
-     (atom-i "[Update: The Atom draft is finished.]"))))))
+    (xhtml-p
+     (xhtml-i "[Update: The Atom draft is finished.]"))))))
 
 ;; <?xml version="1.0" encoding="utf-8"?>
 ;;    <feed xmlns="http://www.w3.org/2005/Atom">

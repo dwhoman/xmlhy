@@ -1,12 +1,12 @@
-(import [xmlgen.xmlgen :as x]
-        [xmlgen.xmlgen-helpers]
-        [xmlgen.xcard]
+(import [xmlhy.xmlhy :as x]
+        [xmlhy.xmlhy-util]
+        [xmlhy.xcard]
         [sys])
 
-(require xmlgen.xmlgen)
-(require xmlgen.xcard)
-(def xmlgen-buffer sys.--stdout--)
-(xmlgen-declare 1.0 "UTF-8")
+(require xmlhy.xmlhy)
+(require xmlhy.xcard)
+(def xmlhy-buffer sys.--stdout--)
+(xmlhy-declare 1.0 "UTF-8")
 (xcard-vcards
  {"&ns" "x" "xmlns:x" "urn:ietf:params:xml:ns:vcard-4.0"}
  (xcard-vcard {"&ns" "x"}

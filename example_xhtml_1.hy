@@ -1,14 +1,15 @@
-(import [xmlgen.xmlgen :as x]
-        [xmlgen.xmlgen-helpers]
-        [xmlgen.xhtml]
+(import [xmlhy.xmlhy :as x]
+        [xmlhy.xmlhy-util]
+        [xmlhy.xhtml]
         [sys])
 
-(require xmlgen.xmlgen)
-(require xmlgen.xhtml)
-(def xmlgen-buffer sys.--stdout--)
+(require xmlhy.xmlhy)
+(require xmlhy.xhtml)
+(def xmlhy-buffer sys.--stdout--)
+(setv xmlhy.xmlhy-util.double-quote True)
 (xhtml-html
  (xhtml-head (xhtml-title "Sample xHTML"))
- (xmlgen-crlf)
+ (xmlhy-crlf)
  (xhtml-body (xhtml-h1 "Sample xHTML")
              (xhtml-div {"id" "lorem1500"}
                         (xhtml-p "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -18,4 +19,4 @@
  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
  culpa qui officia deserunt mollit anim id est laborum."))))
-(xmlgen-crlf)
+(xmlhy-crlf)
