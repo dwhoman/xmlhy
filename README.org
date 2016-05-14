@@ -73,11 +73,11 @@
    #+END_SRC
 
    #+BEGIN_SRC hy
-(xmlhy "node" {"attrib" "val"} (xmlhy "a") (xmlhy "b"))
+(xmlhy "node" {"attrib" "val"} (xmlhy "a") (xmlhy "b" "Text"))
    #+END_SRC
    becomes
    #+BEGIN_SRC html
-<node attrib='val'><a /><b /></node>
+<node attrib='val'><a /><b >Text</b></node>
    #+END_SRC
 
    Mixing text and tags is not allowed, so
