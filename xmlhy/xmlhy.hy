@@ -46,23 +46,30 @@
 ;;; macro for defining new xml tag functions
 
 ;;; (xmlhy-tag html-html) will create a macro (html-html) that will
-;;; output <html/> type tags. 
+;;; output <html/> type tags. Dashes will be preserved but underscores
+;;; will be converted to dashes, since Hy converts dashes to
+;;; underscores in non-strings. So if you want an underscore, use an
+;;; ampersand. So a-b-c and a_b_c become the macro a-b-c or a_b_c and
+;;; prints the tag b-c.  Similarly, a-b&c become the macro a-b&c and
+;;; prints b_c.
 (defmacro xmlhy-tag [tag-ns-name]
   (with-gensyms [name]
     `(defmacro ~tag-ns-name [&rest body]
        (defn ~tag-ns-name [])
-       (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
+       (let [[~name (->
+                     (.split (. ~tag-ns-name --name--) "_" 1)
+                     (last)
+                     (.replace "_" "-")
+                     (.replace "&" "_"))]]
          `(xmlhy ~~name ~@(list body))))))
 
 (defn sanitize [string]
   """Return a string with <>\"'& characters escaped."""
-  (defn replace [string old new]
-    (string.replace old new))
-  (-> (replace string "&" "&amp;")
-      (replace "'" "&apos;")
-      (replace "\"" "&quot;")
-      (replace "<" "&lt;")
-      (replace ">" "&gt;")))
+  (-> (.replace string "&" "&amp;")
+      (.replace "'" "&apos;")
+      (.replace "\"" "&quot;")
+      (.replace "<" "&lt;")
+      (.replace ">" "&gt;")))
 
 ;;; Similar to xmlhy. The user might want to create IE conditional
 ;;; comments or some other commented xml.

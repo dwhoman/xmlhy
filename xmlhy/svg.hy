@@ -3,12 +3,12 @@
 
 ;;; SVG 1.1 elements
 
-(defmacro xmlhy-tag [tag-ns-name]
-  (with-gensyms [name]
-    `(defmacro ~tag-ns-name [&rest body]
-       (defun ~tag-ns-name [])
-       (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
-         `(xmlhy ~~name ~@(list body))))))
+;; (defmacro xmlhy-tag [tag-ns-name]
+;;   (with-gensyms [name]
+;;     `(defmacro ~tag-ns-name [&rest body]
+;;        (defun ~tag-ns-name [])
+;;        (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
+;;          `(xmlhy ~~name ~@(list body))))))
 (defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
 #^svg-a
 #^svg-altGlyph
