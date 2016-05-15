@@ -53,23 +53,36 @@
 ;;; prints the tag b-c.  Similarly, a-b&c become the macro a-b&c and
 ;;; prints b_c.
 (defmacro xmlhy-tag [tag-ns-name]
-  (with-gensyms [name]
+  (with-gensyms [name replace]
     `(defmacro ~tag-ns-name [&rest body]
+       ;; functions will not exist at run-time
        (defn ~tag-ns-name [])
+       (defn ~replace [string]
+         (let [[result []]]
+           (for [c string]
+             (cond
+              [(= c "_") (.append result "-")]
+              [(= c "&") (.append result "_")]
+              [True (.append result c)]))
+           (.join "" result)))
        (let [[~name (->
                      (.split (. ~tag-ns-name --name--) "_" 1)
                      (last)
-                     (.replace "_" "-")
-                     (.replace "&" "_"))]]
+                     (~replace))]]
          `(xmlhy ~~name ~@(list body))))))
 
 (defn sanitize [string]
   """Return a string with <>\"'& characters escaped."""
-  (-> (.replace string "&" "&amp;")
-      (.replace "'" "&apos;")
-      (.replace "\"" "&quot;")
-      (.replace "<" "&lt;")
-      (.replace ">" "&gt;")))
+  (let [[result []]]
+    (for [c string]
+      (cond       
+       [(= c "&" ) (.append result "&amp;")]
+       [(= c "'" ) (.append result "&apos;")]
+       [(= c "\"") (.append result "&quot;")]
+       [(= c "<" ) (.append result "&lt;")]
+       [(= c ">" ) (.append result "&gt;")]
+       [True (.append result c)]))
+    (.join "" result)))
 
 ;;; Similar to xmlhy. The user might want to create IE conditional
 ;;; comments or some other commented xml.
