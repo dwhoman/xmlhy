@@ -29,18 +29,15 @@
     (cond
      [(empty? body)            ; explicity none, <foo />
       `(do
-        (string? "")           ; hack to prevent pyc from optimizing things away
         (import [xmlhy.util :as ~helper])
         ((. ~helper print-to-buffer) (apply (. ~helper single-tag) [~name] ~attributes) xmlhy-buffer))]
      [(and (< 0 (len body)) (string? (first body)))
       `(do ; text tag
-        (string? "")           ; hack to prevent pyc from optimizing things away
         (import [xmlhy.util :as ~helper])
         ((. ~helper print-to-buffer)
          (apply (. ~helper text-tag) [~name ~(first body)] ~attributes) xmlhy-buffer))]
      [True                     ; has child nodes
       `(let [[~ename ~name]]   ; in case name is a stateful expression
-        (string? "")           ; hack to prevent pyc from optimizing things away
         (import [xmlhy.util :as ~helper])
         ((. ~helper print-to-buffer)
          (apply (. ~helper begin-tag) [~ename] ~attributes) xmlhy-buffer)
@@ -105,17 +102,14 @@
     (cond
      [(empty? content)
       `(do
-        (string? "")           ; hack to prevent pyc from optimizing things away
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper "<!--  -->" xmlhy-buffer))]
      [(and (< 0 (len content)) (string? (first content)))
       `(do
-        (string? "")           ; hack to prevent pyc from optimizing things away
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper (.concat ~helper "<!--" ~(first content) "-->") xmlhy-buffer))]
      [True
       `(do
-        (string? "")           ; hack to prevent pyc from optimizing things away
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper "<!--" xmlhy-buffer)
         ~@(list content)
@@ -126,7 +120,6 @@
 (defmacro xmlhy-print [to-print]
   (with-gensyms [helper]
     `(do
-      (string? "")           ; hack to prevent pyc from optimizing things away
       (import [xmlhy.util :as ~helper])
       ((. ~helper print-to-buffer) ~to-print xmlhy-buffer))))
 
@@ -134,21 +127,18 @@
 (defmacro xmlhy-crlf [&optional [spaces '1]]
   (with-gensyms [helper]
     `(do
-      (string? "")           ; hack to prevent pyc from optimizing things away
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* "\n" (int ~spaces)) xmlhy-buffer))))
 
 (defmacro xmlhy-tab [&optional [tabs '1]]
   (with-gensyms [helper]
     `(do
-      (string? "")           ; hack to prevent pyc from optimizing things away
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* "\t" (int ~tabs)) xmlhy-buffer))))
 
 (defmacro xmlhy-space [&optional [spaces '1]]
   (with-gensyms [helper]
     `(do
-      (string? "")           ; hack to prevent pyc from optimizing things away
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* " " (int ~spaces)) xmlhy-buffer))))
 

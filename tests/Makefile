@@ -1,6 +1,6 @@
 .SUFFIXES: .py .pyc .hy
 
-%: tests.hy
+tests: tests.hy
 	hyc tests.hy
 	hy tests.hy
 	python tests.pyc
