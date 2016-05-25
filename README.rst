@@ -25,7 +25,7 @@ xmlstarlet's \`xml fo'.
 xmlhy is the main xml generating macro.  The xmlhy macro requires
 a node name. Optionally, it can be given a dictionary of node
 attributes and then a text string or one or more expressions for
-the body. 
+the body.
 
 .. code-block:: hy
 
@@ -204,3 +204,31 @@ evaluates to
 
 xmlhy comes packaged with tag tables for atom, mathml, rss, svg,
 util, xcard, and xhtml.
+
+1.4 Installation
+~~~~~~~~~~~~~~~~
+
+To install on the machine, run \`make install'.
+
+To install in a test environment, follow the procedures similar to
+`http://docs.hylang.org/en/stable/hacking.html <http://docs.hylang.org/en/stable/hacking.html>`_.
+
+1. Create a virtual environment:
+
+   .. code-block:: sh
+
+       virtualenv venv
+
+   and activate it:
+
+   .. code-block:: sh
+
+       . venv/bin/activate
+
+2. Install for testing:
+
+   .. code-block:: sh
+
+       cd xmlhy/
+       make install
+

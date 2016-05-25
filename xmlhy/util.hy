@@ -1,19 +1,21 @@
 (defn concat [&rest elements]
-  "Join all argument elements into a string."
+  "Join all argument elements into a string, without separation."
   (.join "" elements))
 
 (defn -ns-attributes [&kwargs attributes]
-  "The `attributes' argument is a dictionary. The function returns a
-  pair of strings; (xml namespace, attrib='val'...). The namespace
-  value can be specified using the special key '&ns'. The namespace
-  value must either be a string or sequence of strings. Namespace
-  string sequences are joined together with colons. XML tag attributes
-  must be strings."
-  
-  (let [[quote-char (if (in "&dq" attributes)
-                      (if (get attributes "&dq")
-                        "\""
-                        "'")
+  "Separate XML attribuets from special attributes, namespace and
+  double-quote.  Returns a pair of strings; ('XML namespace',
+  \"attrib='val'...\"), where 'val' is \"val\" if '&dq' is a non-null
+  keyword argument. The namespace value can be specified using the
+  '&ns' keyword. The namespace value must either be a single value or
+  a sequence of values. Namespace sequences are stringified and joined
+  together with colons.  The user can also override the quoting
+  behavior by adding quoting characters arround the attribute value,
+  e.g. '\\\"name\\\"' will print `name' in double quotes even if &dq
+  is not set."
+
+  (let [[quote-char (if (and (in "&dq" attributes) (get attributes "&dq"))
+                      "\""
                       "'")]
         [ns (if (in "&ns" attributes)
               (get attributes "&ns")
@@ -34,7 +36,17 @@
            ;; join non-namespace key value pairs into key='value'
            ;; strings and then join the resulting strings
            (.join " "
-                  (genexpr (concat (str k) "=" quote-char (str v) quote-char)
+                  (genexpr (concat (str k) "="
+                                   (if (and (string? v)
+                                            (or (and (= "\"" (first v))
+                                                     (= "\"" (last v)))
+                                                (and (= "'" (first v))
+                                                     (= "'" (last v)))))
+                                     v
+                                     (concat
+                                      quote-char
+                                      (str v)
+                                      quote-char)))
                            [(, k v) (.items attributes)]
                            (and (!= k "&ns")
                                 (!= k "&dq"))))]
@@ -45,12 +57,14 @@
 (defn begin-tag [element &kwargs attributes]
   "Create an XML beginning tag with the given attributes.
 
-   element - The name of the element (string-able).
+   element - The element name.
 
-   attributes - Key value pairs that get turned into xml attributs.
-                The special key &ns is used to set the element's
-                namespace.  It is either a string of colon separated
-                values, a list of string values.
+   attributes - Key value pairs that get turned into XML attributes.
+                The special key, &ns, is used to set the element's
+                namespace.  It is either a value, a string of colon
+                separated values, a list of values. The setting the
+                special key, &dq, to non-null causes attributes to be
+                double quoted.
 "
   (let [[elt (str element)]
         [ns-atr (apply -ns-attributes [] attributes)]]
@@ -58,20 +72,20 @@
 
 (defn end-tag [element &kwargs attributes]
   "Create an XML ending tag. `attributes' is used to specify the
-  elements namespace. This fuction complements begin-tag."
+  elements namespace. This function complements begin-tag."
   (let [[elt (str element)]
         [ns-atr (apply -ns-attributes [] attributes)]]
     (concat "</" (first ns-atr) elt ">")))
 
 (defn text-tag [element text &kwargs attributes]
-  "Create an xml leaf containing the specified text. This node cannot
+  "Create an XML leaf containing the specified text. This node cannot
   contain sub-trees. See begin-tag for more information."
   (concat (apply begin-tag [element] attributes)
           text
           (apply end-tag [element] attributes)))
 
 (defn single-tag [element &kwargs attributes]
-  "Create an xml tag without any child nodes, such as <br />. See
+  "Create an XML tag without any child nodes, such as <br />. See
   begin-tag for more information."
   (let [[elt (str element)]
         (ns-atr (apply -ns-attributes [] attributes))]
@@ -87,7 +101,7 @@
 
 (defn xml-instruction [name &rest attributes]
   "Create an XML instruction such as <?xml version='1.0'?>. `name' is
-  the instruction's name, such as 'xml'. `attributes' is an
+  the instruction's name, such as 'XML'. `attributes' is an
   association list of label, value pairs."
   ;; using an association list to make testing easier; keep ordering consistent
   (let [[result ["<?" name]]]
@@ -99,6 +113,3 @@
       (.append result "'"))
     (.append result "?>")
     (apply concat result)))
-
-
-

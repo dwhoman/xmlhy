@@ -198,11 +198,20 @@
    [test-ampersand-tag
     (fn [self]
       (xmlhy-tag amp-a&b)
-      (test-tag "<a_b />" (amp-a&b)))]
+      (test-tag "<a_b\s*/>" (amp-a&b)))]
    [test-dash-tag
     (fn [self]
       (xmlhy-tag amp-a-b)
-      (test-tag "<a-b />" (amp-a-b)))]])
+      (test-tag "<a-b\s*/>" (amp-a-b)))]
+   [test-explicite-quoting-double
+    (fn [self]
+      (test-tag "<b:c:zzz\s+b='3'\s*>hello</b:c:zzz>"
+                (xmlhy (* 3 "z") {"&ns" ["b" "c"] "b" "'3'" "&dq" True} "hello")))]
+   [test-explicite-quoting-single
+    (fn [self]
+      (test-tag "<b:c:zzz\s+b=\"3\"\s*>hello</b:c:zzz>"
+                (xmlhy (* 3 "z") {"&ns" ["b" "c"]  "b" "\"3\""} "hello")))]
+   ])
 
 (defmain [&rest args]
   (run_unittest Test))

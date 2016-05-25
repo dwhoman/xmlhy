@@ -1,5 +1,4 @@
-(import [xmlhy.util] [sys [--stderr--]]
-        [hy.core.language [is-instance is-string]])
+(import [xmlhy.util] [sys [--stderr--]])
 
 ;; Generates print statements that return xml tags with the tag NAME.
 ;; CONTENTS is broken down into an `attributes' dictionary and `body'
@@ -30,19 +29,19 @@
      [(empty? body)            ; explicity none, <foo />
       `(do
         (import [xmlhy.util :as ~helper])
-        ((. ~helper print-to-buffer) (apply (. ~helper single-tag) [~name] ~attributes) xmlhy-buffer))]
+        (.print-to-buffer ~helper (apply (. ~helper single-tag) [~name] ~attributes) xmlhy-buffer))]
      [(and (< 0 (len body)) (string? (first body)))
       `(do ; text tag
         (import [xmlhy.util :as ~helper])
-        ((. ~helper print-to-buffer)
+        (.print-to-buffer ~helper
          (apply (. ~helper text-tag) [~name ~(first body)] ~attributes) xmlhy-buffer))]
      [True                     ; has child nodes
       `(let [[~ename ~name]]   ; in case name is a stateful expression
         (import [xmlhy.util :as ~helper])
-        ((. ~helper print-to-buffer)
+        (.print-to-buffer ~helper
          (apply (. ~helper begin-tag) [~ename] ~attributes) xmlhy-buffer)
         ~@(list body)
-        ((. ~helper print-to-buffer) (apply (. ~helper end-tag) [~ename] ~attributes) xmlhy-buffer))])))
+        (.print-to-buffer ~helper (apply (. ~helper end-tag) [~ename] ~attributes) xmlhy-buffer))])))
 
 ;;; macro for defining new xml tag functions
 
@@ -102,14 +101,17 @@
     (cond
      [(empty? content)
       `(do
+        (string? "")           ; hack
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper "<!--  -->" xmlhy-buffer))]
      [(and (< 0 (len content)) (string? (first content)))
       `(do
+        (string? "")           ; hack
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper (.concat ~helper "<!--" ~(first content) "-->") xmlhy-buffer))]
      [True
       `(do
+        (string? "")           ; hack
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper "<!--" xmlhy-buffer)
         ~@(list content)
@@ -120,25 +122,29 @@
 (defmacro xmlhy-print [to-print]
   (with-gensyms [helper]
     `(do
+      (string? "")           ; hack
       (import [xmlhy.util :as ~helper])
-      ((. ~helper print-to-buffer) ~to-print xmlhy-buffer))))
+      (.print-to-buffer ~helper ~to-print xmlhy-buffer))))
 
 ;;; White space is meaningful in XML.
 (defmacro xmlhy-crlf [&optional [spaces '1]]
   (with-gensyms [helper]
     `(do
+      (string? "")           ; hack
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* "\n" (int ~spaces)) xmlhy-buffer))))
 
 (defmacro xmlhy-tab [&optional [tabs '1]]
   (with-gensyms [helper]
     `(do
+      (string? "")           ; hack
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* "\t" (int ~tabs)) xmlhy-buffer))))
 
 (defmacro xmlhy-space [&optional [spaces '1]]
   (with-gensyms [helper]
     `(do
+      (string? "")           ; hack
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* " " (int ~spaces)) xmlhy-buffer))))
 
@@ -156,7 +162,7 @@
        (when (instance? bool ~g-standalone)
          (.append ~args (, "standalone" (if (= ~True ~g-standalone) "yes" "no"))))
        (import [xmlhy.util :as ~helper])
-       ((. ~helper print-to-buffer) (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
+       (.print-to-buffer ~helper (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
 
 ;;; Create <?xml-stylesheet?>. href, type, title, media, and charset
 ;;; are strings.  alternate is a boolean.  None can be used for any
@@ -183,7 +189,7 @@
        (when (instance? bool ~g-alternate)
          (.append ~args (, "alternate" (if (= ~True ~g-href) "yes" "no"))))
        (import [xmlhy.util :as ~helper])
-       ((. ~helper print-to-buffer) (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
+       (.print-to-buffer ~helper (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
 
 (defclass WritableObject []
   "Buffer that print can be redirected to. The print output is stored

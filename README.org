@@ -17,7 +17,7 @@
     xmlhy is the main xml generating macro.  The xmlhy macro requires
     a node name. Optionally, it can be given a dictionary of node
     attributes and then a text string or one or more expressions for
-    the body. 
+    the body.
     #+BEGIN_SRC hy
 (xmlhy "name" {attributes}? body*)
     #+END_SRC
@@ -147,3 +147,23 @@
 ** XML element families
    xmlhy comes packaged with tag tables for atom, mathml, rss, svg,
    util, xcard, and xhtml.
+
+** Installation
+   To install on the machine, run `make install'.
+
+   To install in a test environment, follow the procedures similar to
+   http://docs.hylang.org/en/stable/hacking.html.
+
+   1. Create a virtual environment:
+      #+BEGIN_SRC sh
+virtualenv venv
+      #+END_SRC
+      and activate it:
+      #+BEGIN_SRC sh
+. venv/bin/activate
+      #+END_SRC
+   2. Install for testing:
+      #+BEGIN_SRC sh
+cd xmlhy/
+make install
+      #+END_SRC

@@ -1,8 +1,9 @@
+.PHONY: tests clean install sample
 install: setup.py
-	python setup.py install --user
+	pip install .
 tests:
 	cd tests && $(MAKE) tests
-samples:
+sample:
 	cd sample && $(MAKE)
 clean:
 	-rm -f *.pyc

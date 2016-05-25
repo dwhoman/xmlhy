@@ -12,7 +12,6 @@ rss_1: $$@.hy
 svg_1: $$@.hy
 xcard_1: $$@.hy
 xhtml_1: $$@.hy
-xhtml_2: $$@.hy
 xmlhy_1: $$@.hy
 
 clean:
