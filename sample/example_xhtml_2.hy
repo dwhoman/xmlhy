@@ -1,11 +1,11 @@
-(import [xmlhy :as x]
-        [xmlhy-util]
-        [xhtml]
+(import [xmlhy.xmlhy :as x]
+        [xmlhy.util]
+        [xmlhy.xhtml]
         [sys])
 
-(require xmlhy)
-(require xhtml)
+(require xmlhy.xmlhy xmlhy.xhtml)
 (def xmlhy-buffer sys.--stdout--)
+(xmlhy-crlf)
 (xhtml-html
  (xhtml-head (xhtml-title "Sample xHTML"))
  (xmlhy-crlf)
@@ -18,4 +18,5 @@
  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
  culpa qui officia deserunt mollit anim id est laborum."))))
-(xmlhy-crlf)
+;;(xmlhy-declare "1.0" None True)
+(xmlhy-stylesheet)

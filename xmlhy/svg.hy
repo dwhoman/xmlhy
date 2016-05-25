@@ -1,92 +1,84 @@
-(import [xmlhy-util] [xmlhy])
-(require xmlhy)
+(require xmlhy.xmlhy)
 
 ;;; SVG 1.1 elements
 
-;; (defmacro xmlhy-tag [tag-ns-name]
-;;   (with-gensyms [name]
-;;     `(defmacro ~tag-ns-name [&rest body]
-;;        (defun ~tag-ns-name [])
-;;        (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
-;;          `(xmlhy ~~name ~@(list body))))))
-(defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
-#^svg-a
-#^svg-altGlyph
-#^svg-altGlyphDef
-#^svg-altGlyphItem
-#^svg-animate
-#^svg-animateColor
-#^svg-animateMotion
-#^svg-animateTransform
-#^svg-circle
-#^svg-clipPath
-#^svg-color-profile
-#^svg-cursor
-#^svg-defs
-#^svg-desc
-#^svg-ellipse
-#^svg-feBlend
-#^svg-feColorMatrix
-#^svg-feComponentTransfer
-#^svg-feComposite
-#^svg-feConvolveMatrix
-#^svg-feDiffuseLighting
-#^svg-feDisplacementMap
-#^svg-feDistantLight
-#^svg-feFlood
-#^svg-feFuncA
-#^svg-feFuncB
-#^svg-feFuncG
-#^svg-feFuncR
-#^svg-feGaussianBlur
-#^svg-feImage
-#^svg-feMerge
-#^svg-feMergeNode
-#^svg-feMorphology
-#^svg-feOffset
-#^svg-fePointLight
-#^svg-feSpecularLighting
-#^svg-feSpotLight
-#^svg-feTile
-#^svg-feTurbulence
-#^svg-filter
-#^svg-font
-#^svg-font-face
-#^svg-font-face-format
-#^svg-font-face-name
-#^svg-font-face-src
-#^svg-font-face-uri
-#^svg-foreignObject
-#^svg-g
-#^svg-glyph
-#^svg-glyphRef
-#^svg-hkern
-#^svg-image
-#^svg-line
-#^svg-linearGradient
-#^svg-marker
-#^svg-mask
-#^svg-metadata
-#^svg-missing-glyph
-#^svg-mpath
-#^svg-path
-#^svg-pattern
-#^svg-polygon
-#^svg-polyline
-#^svg-radialGradient
-#^svg-rect
-#^svg-script
-#^svg-set
-#^svg-stop
-#^svg-style
-#^svg-svg
-#^svg-switch
-#^svg-symbol
-#^svg-text
-#^svg-textPath
-#^svg-title
-#^svg-tref
-#^svg-tspan
-#^svg-use
-#^svg-view
-#^svg-vkern
+(xmlhy-tag svg-a)
+(xmlhy-tag svg-altGlyph)
+(xmlhy-tag svg-altGlyphDef)
+(xmlhy-tag svg-altGlyphItem)
+(xmlhy-tag svg-animate)
+(xmlhy-tag svg-animateColor)
+(xmlhy-tag svg-animateMotion)
+(xmlhy-tag svg-animateTransform)
+(xmlhy-tag svg-circle)
+(xmlhy-tag svg-clipPath)
+(xmlhy-tag svg-color-profile)
+(xmlhy-tag svg-cursor)
+(xmlhy-tag svg-defs)
+(xmlhy-tag svg-desc)
+(xmlhy-tag svg-ellipse)
+(xmlhy-tag svg-feBlend)
+(xmlhy-tag svg-feColorMatrix)
+(xmlhy-tag svg-feComponentTransfer)
+(xmlhy-tag svg-feComposite)
+(xmlhy-tag svg-feConvolveMatrix)
+(xmlhy-tag svg-feDiffuseLighting)
+(xmlhy-tag svg-feDisplacementMap)
+(xmlhy-tag svg-feDistantLight)
+(xmlhy-tag svg-feFlood)
+(xmlhy-tag svg-feFuncA)
+(xmlhy-tag svg-feFuncB)
+(xmlhy-tag svg-feFuncG)
+(xmlhy-tag svg-feFuncR)
+(xmlhy-tag svg-feGaussianBlur)
+(xmlhy-tag svg-feImage)
+(xmlhy-tag svg-feMerge)
+(xmlhy-tag svg-feMergeNode)
+(xmlhy-tag svg-feMorphology)
+(xmlhy-tag svg-feOffset)
+(xmlhy-tag svg-fePointLight)
+(xmlhy-tag svg-feSpecularLighting)
+(xmlhy-tag svg-feSpotLight)
+(xmlhy-tag svg-feTile)
+(xmlhy-tag svg-feTurbulence)
+(xmlhy-tag svg-filter)
+(xmlhy-tag svg-font)
+(xmlhy-tag svg-font-face)
+(xmlhy-tag svg-font-face-format)
+(xmlhy-tag svg-font-face-name)
+(xmlhy-tag svg-font-face-src)
+(xmlhy-tag svg-font-face-uri)
+(xmlhy-tag svg-foreignObject)
+(xmlhy-tag svg-g)
+(xmlhy-tag svg-glyph)
+(xmlhy-tag svg-glyphRef)
+(xmlhy-tag svg-hkern)
+(xmlhy-tag svg-image)
+(xmlhy-tag svg-line)
+(xmlhy-tag svg-linearGradient)
+(xmlhy-tag svg-marker)
+(xmlhy-tag svg-mask)
+(xmlhy-tag svg-metadata)
+(xmlhy-tag svg-missing-glyph)
+(xmlhy-tag svg-mpath)
+(xmlhy-tag svg-path)
+(xmlhy-tag svg-pattern)
+(xmlhy-tag svg-polygon)
+(xmlhy-tag svg-polyline)
+(xmlhy-tag svg-radialGradient)
+(xmlhy-tag svg-rect)
+(xmlhy-tag svg-script)
+(xmlhy-tag svg-set)
+(xmlhy-tag svg-stop)
+(xmlhy-tag svg-style)
+(xmlhy-tag svg-svg)
+(xmlhy-tag svg-switch)
+(xmlhy-tag svg-symbol)
+(xmlhy-tag svg-text)
+(xmlhy-tag svg-textPath)
+(xmlhy-tag svg-title)
+(xmlhy-tag svg-tref)
+(xmlhy-tag svg-tspan)
+(xmlhy-tag svg-use)
+(xmlhy-tag svg-view)
+(xmlhy-tag svg-vkern)

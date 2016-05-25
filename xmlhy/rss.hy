@@ -1,47 +1,30 @@
-(import [xmlhy-util] [xmlhy])
-(require xmlhy)
+(require xmlhy.xmlhy)
 
 ;;; RSS 2.0 elements
 
-;;; can't get hy to import xmlhy-tag from xmlhy.hy when this script
-;;; is used in another script, works here without xmlhy-tag being
-;;; locally defined
-
-(defmacro xmlhy-tag [tag-ns-name]
-  (with-gensyms [name]
-    `(defmacro ~tag-ns-name [&rest body]
-       (defun ~tag-ns-name [])
-       (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
-         `(xmlhy ~~name ~@(list body))))))
-(defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
-#^rss-category
-#^rss-channel
-#^rss-cloud
-#^rss-comments
-#^rss-copyright
-#^rss-description
-#^rss-docs
-#^rss-enclosure
-#^rss-generator
-#^rss-guid
-#^rss-image
-#^rss-item
-#^rss-language
-#^rss-lastBuildDate
-#^rss-link
-#^rss-managingEditor
-#^rss-pubDate
-#^rss-rating
-#^rss-rss
-#^rss-skipDays
-#^rss-skipHours
-#^rss-source
-#^rss-textInput
-#^rss-title
-#^rss-ttl
-#^rss-webMaster
-
-(defmain [&rest args]
-  (import [sys])
-  (def xmlhy-buffer sys.--stdout--)
-  (rss-rss))
+(xmlhy-tag rss-category)
+(xmlhy-tag rss-channel)
+(xmlhy-tag rss-cloud)
+(xmlhy-tag rss-comments)
+(xmlhy-tag rss-copyright)
+(xmlhy-tag rss-description)
+(xmlhy-tag rss-docs)
+(xmlhy-tag rss-enclosure)
+(xmlhy-tag rss-generator)
+(xmlhy-tag rss-guid)
+(xmlhy-tag rss-image)
+(xmlhy-tag rss-item)
+(xmlhy-tag rss-language)
+(xmlhy-tag rss-lastBuildDate)
+(xmlhy-tag rss-link)
+(xmlhy-tag rss-managingEditor)
+(xmlhy-tag rss-pubDate)
+(xmlhy-tag rss-rating)
+(xmlhy-tag rss-rss)
+(xmlhy-tag rss-skipDays)
+(xmlhy-tag rss-skipHours)
+(xmlhy-tag rss-source)
+(xmlhy-tag rss-textInput)
+(xmlhy-tag rss-title)
+(xmlhy-tag rss-ttl)
+(xmlhy-tag rss-webMaster)

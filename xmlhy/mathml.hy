@@ -1,206 +1,197 @@
-(import [xmlhy-util] [xmlhy])
-(require xmlhy)
+(require xmlhy.xmlhy)
 
 ;; MathML 3 elements
-
-(defmacro xmlhy-tag [tag-ns-name]
-  (with-gensyms [name]
-    `(defmacro ~tag-ns-name [&rest body]
-       (defun ~tag-ns-name [])
-       (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
-         `(xmlhy ~~name ~@(list body))))))
-(defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
-#^mathml-abs
-#^mathml-and
-#^mathml-annotation
-#^mathml-annotation-xml
-#^mathml-apply
-#^mathml-approx
-#^mathml-arccos
-#^mathml-arccosh
-#^mathml-arccot
-#^mathml-arccoth
-#^mathml-arccsc
-#^mathml-arccsch
-#^mathml-arcsec
-#^mathml-arcsech
-#^mathml-arcsin
-#^mathml-arcsinh
-#^mathml-arctan
-#^mathml-arctanh
-#^mathml-arg
-#^mathml-bind
-#^mathml-bvar
-#^mathml-card
-#^mathml-cartesianproduct
-#^mathml-cbytes
-#^mathml-ceiling
-#^mathml-cerror
-#^mathml-ci
-#^mathml-cn
-#^mathml-codomain
-#^mathml-complexes
-#^mathml-compose
-#^mathml-condition
-#^mathml-conjugate
-#^mathml-cos
-#^mathml-cosh
-#^mathml-cot
-#^mathml-coth
-#^mathml-cs
-#^mathml-csc
-#^mathml-csch
-#^mathml-csymbol
-#^mathml-curl
-#^mathml-declare
-#^mathml-degree
-#^mathml-determinant
-#^mathml-diff
-#^mathml-divergence
-#^mathml-divide
-#^mathml-domain
-#^mathml-domainofapplication
-#^mathml-emptyset
-#^mathml-eq
-#^mathml-equivalent
-#^mathml-eulergamma
-#^mathml-exists
-#^mathml-exp
-#^mathml-exponentiale
-#^mathml-factorial
-#^mathml-factorof
-#^mathml-false
-#^mathml-floor
-#^mathml-fn
-#^mathml-forall
-#^mathml-gcd
-#^mathml-geq
-#^mathml-grad
-#^mathml-gt
-#^mathml-ident
-#^mathml-image
-#^mathml-imaginary
-#^mathml-imaginaryi
-#^mathml-implies
-#^mathml-in
-#^mathml-infinity
-#^mathml-int
-#^mathml-integers
-#^mathml-intersect
-#^mathml-interval
-#^mathml-inverse
-#^mathml-lambda
-#^mathml-laplacian
-#^mathml-lcm
-#^mathml-leq
-#^mathml-limit
-#^mathml-list
-#^mathml-ln
-#^mathml-log
-#^mathml-logbase
-#^mathml-lowlimit
-#^mathml-lt
-#^mathml-maction
-#^mathml-maligngroup
-#^mathml-malignmark
-#^mathml-math
-#^mathml-matrix
-#^mathml-matrixrow
-#^mathml-max
-#^mathml-mean
-#^mathml-median
-#^mathml-menclose
-#^mathml-merror
-#^mathml-mfenced
-#^mathml-mfrac
-#^mathml-mglyph
-#^mathml-mi
-#^mathml-min
-#^mathml-minus
-#^mathml-mlabeledtr
-#^mathml-mlongdiv
-#^mathml-mmultiscripts
-#^mathml-mn
-#^mathml-mo
-#^mathml-mode
-#^mathml-moment
-#^mathml-momentabout
-#^mathml-mover
-#^mathml-mpadded
-#^mathml-mphantom
-#^mathml-mprescripts
-#^mathml-mroot
-#^mathml-mrow
-#^mathml-ms
-#^mathml-mscarries
-#^mathml-mscarry
-#^mathml-msgroup
-#^mathml-msline
-#^mathml-mspace
-#^mathml-msqrt
-#^mathml-msrow
-#^mathml-mstack
-#^mathml-mstyle
-#^mathml-msub
-#^mathml-msubsup
-#^mathml-msup
-#^mathml-mtable
-#^mathml-mtd
-#^mathml-mtext
-#^mathml-mtr
-#^mathml-munder
-#^mathml-munderover
-#^mathml-naturalnumbers
-#^mathml-neq
-#^mathml-none
-#^mathml-not
-#^mathml-notanumber
-#^mathml-notin
-#^mathml-notprsubset
-#^mathml-notsubset
-#^mathml-or
-#^mathml-otherwise
-#^mathml-outerproduct
-#^mathml-partialdiff
-#^mathml-pi
-#^mathml-piece
-#^mathml-piecewise
-#^mathml-plus
-#^mathml-power
-#^mathml-primes
-#^mathml-product
-#^mathml-prsubset
-#^mathml-quotient
-#^mathml-rationals
-#^mathml-real
-#^mathml-reals
-#^mathml-reln
-#^mathml-rem
-#^mathml-root
-#^mathml-scalarproduct
-#^mathml-sdev
-#^mathml-sec
-#^mathml-sech
-#^mathml-selector
-#^mathml-semantics
-#^mathml-sep
-#^mathml-set
-#^mathml-setdiff
-#^mathml-share
-#^mathml-sin
-#^mathml-sinh
-#^mathml-span
-#^mathml-subset
-#^mathml-sum
-#^mathml-tan
-#^mathml-tanh
-#^mathml-tendsto
-#^mathml-times
-#^mathml-transpose
-#^mathml-true
-#^mathml-union
-#^mathml-uplimit
-#^mathml-variance
-#^mathml-vector
-#^mathml-vectorproduct
-#^mathml-xor
+(xmlhy-tag mathml-abs)
+(xmlhy-tag mathml-and)
+(xmlhy-tag mathml-annotation)
+(xmlhy-tag mathml-annotation-xml)
+(xmlhy-tag mathml-apply)
+(xmlhy-tag mathml-approx)
+(xmlhy-tag mathml-arccos)
+(xmlhy-tag mathml-arccosh)
+(xmlhy-tag mathml-arccot)
+(xmlhy-tag mathml-arccoth)
+(xmlhy-tag mathml-arccsc)
+(xmlhy-tag mathml-arccsch)
+(xmlhy-tag mathml-arcsec)
+(xmlhy-tag mathml-arcsech)
+(xmlhy-tag mathml-arcsin)
+(xmlhy-tag mathml-arcsinh)
+(xmlhy-tag mathml-arctan)
+(xmlhy-tag mathml-arctanh)
+(xmlhy-tag mathml-arg)
+(xmlhy-tag mathml-bind)
+(xmlhy-tag mathml-bvar)
+(xmlhy-tag mathml-card)
+(xmlhy-tag mathml-cartesianproduct)
+(xmlhy-tag mathml-cbytes)
+(xmlhy-tag mathml-ceiling)
+(xmlhy-tag mathml-cerror)
+(xmlhy-tag mathml-ci)
+(xmlhy-tag mathml-cn)
+(xmlhy-tag mathml-codomain)
+(xmlhy-tag mathml-complexes)
+(xmlhy-tag mathml-compose)
+(xmlhy-tag mathml-condition)
+(xmlhy-tag mathml-conjugate)
+(xmlhy-tag mathml-cos)
+(xmlhy-tag mathml-cosh)
+(xmlhy-tag mathml-cot)
+(xmlhy-tag mathml-coth)
+(xmlhy-tag mathml-cs)
+(xmlhy-tag mathml-csc)
+(xmlhy-tag mathml-csch)
+(xmlhy-tag mathml-csymbol)
+(xmlhy-tag mathml-curl)
+(xmlhy-tag mathml-declare)
+(xmlhy-tag mathml-degree)
+(xmlhy-tag mathml-determinant)
+(xmlhy-tag mathml-diff)
+(xmlhy-tag mathml-divergence)
+(xmlhy-tag mathml-divide)
+(xmlhy-tag mathml-domain)
+(xmlhy-tag mathml-domainofapplication)
+(xmlhy-tag mathml-emptyset)
+(xmlhy-tag mathml-eq)
+(xmlhy-tag mathml-equivalent)
+(xmlhy-tag mathml-eulergamma)
+(xmlhy-tag mathml-exists)
+(xmlhy-tag mathml-exp)
+(xmlhy-tag mathml-exponentiale)
+(xmlhy-tag mathml-factorial)
+(xmlhy-tag mathml-factorof)
+(xmlhy-tag mathml-false)
+(xmlhy-tag mathml-floor)
+(xmlhy-tag mathml-fn)
+(xmlhy-tag mathml-forall)
+(xmlhy-tag mathml-gcd)
+(xmlhy-tag mathml-geq)
+(xmlhy-tag mathml-grad)
+(xmlhy-tag mathml-gt)
+(xmlhy-tag mathml-ident)
+(xmlhy-tag mathml-image)
+(xmlhy-tag mathml-imaginary)
+(xmlhy-tag mathml-imaginaryi)
+(xmlhy-tag mathml-implies)
+(xmlhy-tag mathml-in)
+(xmlhy-tag mathml-infinity)
+(xmlhy-tag mathml-int)
+(xmlhy-tag mathml-integers)
+(xmlhy-tag mathml-intersect)
+(xmlhy-tag mathml-interval)
+(xmlhy-tag mathml-inverse)
+(xmlhy-tag mathml-lambda)
+(xmlhy-tag mathml-laplacian)
+(xmlhy-tag mathml-lcm)
+(xmlhy-tag mathml-leq)
+(xmlhy-tag mathml-limit)
+(xmlhy-tag mathml-list)
+(xmlhy-tag mathml-ln)
+(xmlhy-tag mathml-log)
+(xmlhy-tag mathml-logbase)
+(xmlhy-tag mathml-lowlimit)
+(xmlhy-tag mathml-lt)
+(xmlhy-tag mathml-maction)
+(xmlhy-tag mathml-maligngroup)
+(xmlhy-tag mathml-malignmark)
+(xmlhy-tag mathml-math)
+(xmlhy-tag mathml-matrix)
+(xmlhy-tag mathml-matrixrow)
+(xmlhy-tag mathml-max)
+(xmlhy-tag mathml-mean)
+(xmlhy-tag mathml-median)
+(xmlhy-tag mathml-menclose)
+(xmlhy-tag mathml-merror)
+(xmlhy-tag mathml-mfenced)
+(xmlhy-tag mathml-mfrac)
+(xmlhy-tag mathml-mglyph)
+(xmlhy-tag mathml-mi)
+(xmlhy-tag mathml-min)
+(xmlhy-tag mathml-minus)
+(xmlhy-tag mathml-mlabeledtr)
+(xmlhy-tag mathml-mlongdiv)
+(xmlhy-tag mathml-mmultiscripts)
+(xmlhy-tag mathml-mn)
+(xmlhy-tag mathml-mo)
+(xmlhy-tag mathml-mode)
+(xmlhy-tag mathml-moment)
+(xmlhy-tag mathml-momentabout)
+(xmlhy-tag mathml-mover)
+(xmlhy-tag mathml-mpadded)
+(xmlhy-tag mathml-mphantom)
+(xmlhy-tag mathml-mprescripts)
+(xmlhy-tag mathml-mroot)
+(xmlhy-tag mathml-mrow)
+(xmlhy-tag mathml-ms)
+(xmlhy-tag mathml-mscarries)
+(xmlhy-tag mathml-mscarry)
+(xmlhy-tag mathml-msgroup)
+(xmlhy-tag mathml-msline)
+(xmlhy-tag mathml-mspace)
+(xmlhy-tag mathml-msqrt)
+(xmlhy-tag mathml-msrow)
+(xmlhy-tag mathml-mstack)
+(xmlhy-tag mathml-mstyle)
+(xmlhy-tag mathml-msub)
+(xmlhy-tag mathml-msubsup)
+(xmlhy-tag mathml-msup)
+(xmlhy-tag mathml-mtable)
+(xmlhy-tag mathml-mtd)
+(xmlhy-tag mathml-mtext)
+(xmlhy-tag mathml-mtr)
+(xmlhy-tag mathml-munder)
+(xmlhy-tag mathml-munderover)
+(xmlhy-tag mathml-naturalnumbers)
+(xmlhy-tag mathml-neq)
+(xmlhy-tag mathml-none)
+(xmlhy-tag mathml-not)
+(xmlhy-tag mathml-notanumber)
+(xmlhy-tag mathml-notin)
+(xmlhy-tag mathml-notprsubset)
+(xmlhy-tag mathml-notsubset)
+(xmlhy-tag mathml-or)
+(xmlhy-tag mathml-otherwise)
+(xmlhy-tag mathml-outerproduct)
+(xmlhy-tag mathml-partialdiff)
+(xmlhy-tag mathml-pi)
+(xmlhy-tag mathml-piece)
+(xmlhy-tag mathml-piecewise)
+(xmlhy-tag mathml-plus)
+(xmlhy-tag mathml-power)
+(xmlhy-tag mathml-primes)
+(xmlhy-tag mathml-product)
+(xmlhy-tag mathml-prsubset)
+(xmlhy-tag mathml-quotient)
+(xmlhy-tag mathml-rationals)
+(xmlhy-tag mathml-real)
+(xmlhy-tag mathml-reals)
+(xmlhy-tag mathml-reln)
+(xmlhy-tag mathml-rem)
+(xmlhy-tag mathml-root)
+(xmlhy-tag mathml-scalarproduct)
+(xmlhy-tag mathml-sdev)
+(xmlhy-tag mathml-sec)
+(xmlhy-tag mathml-sech)
+(xmlhy-tag mathml-selector)
+(xmlhy-tag mathml-semantics)
+(xmlhy-tag mathml-sep)
+(xmlhy-tag mathml-set)
+(xmlhy-tag mathml-setdiff)
+(xmlhy-tag mathml-share)
+(xmlhy-tag mathml-sin)
+(xmlhy-tag mathml-sinh)
+(xmlhy-tag mathml-span)
+(xmlhy-tag mathml-subset)
+(xmlhy-tag mathml-sum)
+(xmlhy-tag mathml-tan)
+(xmlhy-tag mathml-tanh)
+(xmlhy-tag mathml-tendsto)
+(xmlhy-tag mathml-times)
+(xmlhy-tag mathml-transpose)
+(xmlhy-tag mathml-true)
+(xmlhy-tag mathml-union)
+(xmlhy-tag mathml-uplimit)
+(xmlhy-tag mathml-variance)
+(xmlhy-tag mathml-vector)
+(xmlhy-tag mathml-vectorproduct)
+(xmlhy-tag mathml-xor)

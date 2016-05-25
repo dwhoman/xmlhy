@@ -1,156 +1,74 @@
-(import [xmlhy-util] [xmlhy])
-
-(require xmlhy)
-(defmacro xcard-vcards [&rest body]
-  `(xmlhy "vcards" ~@(list body)))
-
-(defmacro xcard-vcard [&rest body]
-  `(xmlhy "vcard" ~@(list body)))
-
-(defmacro xcard-group [&rest body]
-  `(xmlhy "group" ~@(list body)))
-
-(defmacro xcard-adr [&rest body]
-  `(xmlhy "adr" ~@(list body)))
-
-(defmacro xcard-anniversary [&rest body]
-  `(xmlhy "anniversary" ~@(list body)))
-
-(defmacro xcard-bday [&rest body]
-  `(xmlhy "bday" ~@(list body)))
-
-(defmacro xcard-caladruri [&rest body]
-  `(xmlhy "caladruri" ~@(list body)))
-
-(defmacro xcard-additional [&rest body]
-  `(xmlhy "additional" ~@(list body)))
-(defmacro xcard-altid [&rest body]
-  `(xmlhy "altid" ~@(list body)))
-(defmacro xcard-boolean [&rest body]
-  `(xmlhy "boolean" ~@(list body)))
-(defmacro xcard-calscale [&rest body]
-  `(xmlhy "calscale" ~@(list body)))
-(defmacro xcard-caluri [&rest body]
-  `(xmlhy "caluri" ~@(list body)))
-(defmacro xcard-categories [&rest body]
-  `(xmlhy "categories" ~@(list body)))
-(defmacro xcard-clientpidmap [&rest body]
-  `(xmlhy "clientpidmap" ~@(list body)))
-(defmacro xcard-code [&rest body]
-  `(xmlhy "code" ~@(list body)))
-(defmacro xcard-country [&rest body]
-  `(xmlhy "country" ~@(list body)))
-(defmacro xcard-date [&rest body]
-  `(xmlhy "date" ~@(list body)))
-(defmacro xcard-date-time [&rest body]
-  `(xmlhy "date-time" ~@(list body)))
-(defmacro xcard-email [&rest body]
-  `(xmlhy "email" ~@(list body)))
-(defmacro xcard-ext [&rest body]
-  `(xmlhy "ext" ~@(list body)))
-(defmacro xcard-fburl [&rest body]
-  `(xmlhy "fburl" ~@(list body)))
-(defmacro xcard-float [&rest body]
-  `(xmlhy "float" ~@(list body)))
-(defmacro xcard-fn [&rest body]
-  `(xmlhy "fn" ~@(list body)))
-(defmacro xcard-gender [&rest body]
-  `(xmlhy "gender" ~@(list body)))
-(defmacro xcard-geo [&rest body]
-  `(xmlhy "geo" ~@(list body)))
-(defmacro xcard-given [&rest body]
-  `(xmlhy "given" ~@(list body)))
-(defmacro xcard-identity [&rest body]
-  `(xmlhy "identity" ~@(list body)))
-(defmacro xcard-impp [&rest body]
-  `(xmlhy "impp" ~@(list body)))
-(defmacro xcard-integer [&rest body]
-  `(xmlhy "integer" ~@(list body)))
-(defmacro xcard-key [&rest body]
-  `(xmlhy "key" ~@(list body)))
-(defmacro xcard-kind [&rest body]
-  `(xmlhy "kind" ~@(list body)))
-(defmacro xcard-label [&rest body]
-  `(xmlhy "label" ~@(list body)))
-(defmacro xcard-lang [&rest body]
-  `(xmlhy "lang" ~@(list body)))
-(defmacro xcard-language [&rest body]
-  `(xmlhy "language" ~@(list body)))
-(defmacro xcard-language-tag [&rest body]
-  `(xmlhy "language-tag" ~@(list body)))
-(defmacro xcard-locality [&rest body]
-  `(xmlhy "locality" ~@(list body)))
-(defmacro xcard-logo [&rest body]
-  `(xmlhy "logo" ~@(list body)))
-(defmacro xcard-mediatype [&rest body]
-  `(xmlhy "mediatype" ~@(list body)))
-(defmacro xcard-member [&rest body]
-  `(xmlhy "member" ~@(list body)))
-(defmacro xcard-n [&rest body]
-  `(xmlhy "n" ~@(list body)))
-(defmacro xcard-nickname [&rest body]
-  `(xmlhy "nickname" ~@(list body)))
-(defmacro xcard-note [&rest body]
-  `(xmlhy "note" ~@(list body)))
-(defmacro xcard-org [&rest body]
-  `(xmlhy "org" ~@(list body)))
-(defmacro xcard-parameters [&rest body]
-  `(xmlhy "parameters" ~@(list body)))
-(defmacro xcard-photo [&rest body]
-  `(xmlhy "photo" ~@(list body)))
-(defmacro xcard-pid [&rest body]
-  `(xmlhy "pid" ~@(list body)))
-(defmacro xcard-pobox [&rest body]
-  `(xmlhy "pobox" ~@(list body)))
-(defmacro xcard-pref [&rest body]
-  `(xmlhy "pref" ~@(list body)))
-(defmacro xcard-prefix [&rest body]
-  `(xmlhy "prefix" ~@(list body)))
-(defmacro xcard-prodid [&rest body]
-  `(xmlhy "prodid" ~@(list body)))
-(defmacro xcard-region [&rest body]
-  `(xmlhy "region" ~@(list body)))
-(defmacro xcard-related [&rest body]
-  `(xmlhy "related" ~@(list body)))
-(defmacro xcard-rev [&rest body]
-  `(xmlhy "rev" ~@(list body)))
-(defmacro xcard-role [&rest body]
-  `(xmlhy "role" ~@(list body)))
-(defmacro xcard-sex [&rest body]
-  `(xmlhy "sex" ~@(list body)))
-(defmacro xcard-sort-as [&rest body]
-  `(xmlhy "sort-as" ~@(list body)))
-(defmacro xcard-sound [&rest body]
-  `(xmlhy "sound" ~@(list body)))
-(defmacro xcard-source [&rest body]
-  `(xmlhy "source" ~@(list body)))
-(defmacro xcard-sourceid [&rest body]
-  `(xmlhy "sourceid" ~@(list body)))
-(defmacro xcard-street [&rest body]
-  `(xmlhy "street" ~@(list body)))
-(defmacro xcard-suffix [&rest body]
-  `(xmlhy "suffix" ~@(list body)))
-(defmacro xcard-surname [&rest body]
-  `(xmlhy "surname" ~@(list body)))
-(defmacro xcard-tel [&rest body]
-  `(xmlhy "tel" ~@(list body)))
-(defmacro xcard-text [&rest body]
-  `(xmlhy "text" ~@(list body)))
-(defmacro xcard-time [&rest body]
-  `(xmlhy "time" ~@(list body)))
-(defmacro xcard-timestamp [&rest body]
-  `(xmlhy "timestamp" ~@(list body)))
-(defmacro xcard-title [&rest body]
-  `(xmlhy "title" ~@(list body)))
-(defmacro xcard-type [&rest body]
-  `(xmlhy "type" ~@(list body)))
-(defmacro xcard-tz [&rest body]
-  `(xmlhy "tz" ~@(list body)))
-(defmacro xcard-uid [&rest body]
-  `(xmlhy "uid" ~@(list body)))
-(defmacro xcard-uri [&rest body]
-  `(xmlhy "uri" ~@(list body)))
-(defmacro xcard-url [&rest body]
-  `(xmlhy "url" ~@(list body)))
-(defmacro xcard-utc-offset [&rest body]
-  `(xmlhy "utc-offset" ~@(list body)))
+(require xmlhy.xmlhy)
+(xmlhy-tag xcard-vcards)
+(xmlhy-tag xcard-vcard)
+(xmlhy-tag xcard-group)
+(xmlhy-tag xcard-adr)
+(xmlhy-tag xcard-anniversary)
+(xmlhy-tag xcard-bday)
+(xmlhy-tag xcard-caladruri)
+(xmlhy-tag xcard-additional)
+(xmlhy-tag xcard-altid)
+(xmlhy-tag xcard-boolean)
+(xmlhy-tag xcard-calscale)
+(xmlhy-tag xcard-caluri)
+(xmlhy-tag xcard-categories)
+(xmlhy-tag xcard-clientpidmap)
+(xmlhy-tag xcard-code)
+(xmlhy-tag xcard-country)
+(xmlhy-tag xcard-date)
+(xmlhy-tag xcard-date-time)
+(xmlhy-tag xcard-email)
+(xmlhy-tag xcard-ext)
+(xmlhy-tag xcard-fburl)
+(xmlhy-tag xcard-float)
+(xmlhy-tag xcard-fn)
+(xmlhy-tag xcard-gender)
+(xmlhy-tag xcard-geo)
+(xmlhy-tag xcard-given)
+(xmlhy-tag xcard-identity)
+(xmlhy-tag xcard-impp)
+(xmlhy-tag xcard-integer)
+(xmlhy-tag xcard-key)
+(xmlhy-tag xcard-kind)
+(xmlhy-tag xcard-label)
+(xmlhy-tag xcard-lang)
+(xmlhy-tag xcard-language)
+(xmlhy-tag xcard-language-tag)
+(xmlhy-tag xcard-locality)
+(xmlhy-tag xcard-logo)
+(xmlhy-tag xcard-mediatype)
+(xmlhy-tag xcard-member)
+(xmlhy-tag xcard-n)
+(xmlhy-tag xcard-nickname)
+(xmlhy-tag xcard-note)
+(xmlhy-tag xcard-org)
+(xmlhy-tag xcard-parameters)
+(xmlhy-tag xcard-photo)
+(xmlhy-tag xcard-pid)
+(xmlhy-tag xcard-pobox)
+(xmlhy-tag xcard-pref)
+(xmlhy-tag xcard-prefix)
+(xmlhy-tag xcard-prodid)
+(xmlhy-tag xcard-region)
+(xmlhy-tag xcard-related)
+(xmlhy-tag xcard-rev)
+(xmlhy-tag xcard-role)
+(xmlhy-tag xcard-sex)
+(xmlhy-tag xcard-sort-as)
+(xmlhy-tag xcard-sound)
+(xmlhy-tag xcard-source)
+(xmlhy-tag xcard-sourceid)
+(xmlhy-tag xcard-street)
+(xmlhy-tag xcard-suffix)
+(xmlhy-tag xcard-surname)
+(xmlhy-tag xcard-tel)
+(xmlhy-tag xcard-text)
+(xmlhy-tag xcard-time)
+(xmlhy-tag xcard-timestamp)
+(xmlhy-tag xcard-title)
+(xmlhy-tag xcard-type)
+(xmlhy-tag xcard-tz)
+(xmlhy-tag xcard-uid)
+(xmlhy-tag xcard-uri)
+(xmlhy-tag xcard-url)
+(xmlhy-tag xcard-utc-offset)

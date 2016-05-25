@@ -1,15 +1,13 @@
-all:
-	cd xmlhy && $(MAKE)
-	cd ..
-	if ! $$(test -f xmlhy_util.pyc);\
-	then ln -s xmlhy/xmlhy_util.pyc xmlhy_util.pyc; fi
-#	if ! $$(test -f xmlhy.pyc);\
-	then ln -s xmlhy/xmlhy.pyc xmlhy.pyc; fi
-#	if ! $$(test -f xhtml.pyc);\
-	then ln -s xmlhy/xhtml.pyc xhtml.pyc; fi
-%:
-	cd xmlhy && $(MAKE) $*
-
+install: setup.py
+	python setup.py install --user
+tests:
+	cd tests && $(MAKE)
+samples:
+	cd sample && $(MAKE)
 clean:
 	-rm -f *.pyc
-	cd xmlhy && $(MAKE) clean
+	-rm -rf build
+	-rm -rf xmlhy.egg-info
+	cd tests && $(MAKE) clean
+	cd ..
+	cd sample && $(MAKE) clean

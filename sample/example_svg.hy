@@ -1,12 +1,11 @@
-(import [xmlhy :as x]
-        [xmlhy-util]
-        [svg]
+(import [xmlhy.xmlhy :as x]
+        [xmlhy.util]
+        [xmlhy.svg]
         [sys])
 
 ;;; from https://www.w3.org/TR/SVG11/fonts.html
 ;; dashes should be preserved in tag names
-(require xmlhy)
-(require svg)
+(require xmlhy.xmlhy xmlhy.svg)
 (def xmlhy-buffer sys.--stdout--)
 (xmlhy-declare "1.0" None True)
 (svg-svg

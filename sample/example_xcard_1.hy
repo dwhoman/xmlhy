@@ -1,10 +1,9 @@
 (import [xmlhy.xmlhy :as x]
-        [xmlhy.xmlhy-util]
+        [xmlhy.util]
         [xmlhy.xcard]
         [sys])
 
-(require xmlhy.xmlhy)
-(require xmlhy.xcard)
+(require xmlhy.xmlhy xmlhy.xcard)
 (def xmlhy-buffer sys.--stdout--)
 (xmlhy-declare 1.0 "UTF-8")
 (xcard-vcards

@@ -1,137 +1,111 @@
-(import [xmlhy-util] [xmlhy])
-
-(require xmlhy)
-;; (defmacro xmlhy-tag [tag-ns-name]
-;;   (with-gensyms [name]
-;;     `(defmacro ~tag-ns-name [&rest body]
-;;        (defun ~tag-ns-name [])
-;;        (let [[~name (last (.split (. ~tag-ns-name --name--) "_" 1))]]
-;;          `(xmlhy ~~name ~@(list body))))))
-(defreader ^ [tag-ns-name] `(xmlhy-tag ~tag-ns-name))
+(require xmlhy.xmlhy)
 
 (xmlhy-tag xhtml-a)
-;#^xhtml-a
-#^xhtml-abbr
-#^xhtml-address
-#^xhtml-area
-#^xhtml-article
-#^xhtml-aside
-#^xhtml-audio
-#^xhtml-b
-#^xhtml-base
-#^xhtml-bdi
-#^xhtml-bdo
-#^xhtml-blockquote
-#^xhtml-body
-#^xhtml-br
-#^xhtml-button
-#^xhtml-canvas
-#^xhtml-caption
-#^xhtml-cite
-#^xhtml-code
-#^xhtml-col
-#^xhtml-colgroup
-#^xhtml-data
-#^xhtml-datalist
-#^xhtml-dd
-#^xhtml-del
-#^xhtml-dfn
-#^xhtml-div
-#^xhtml-dl
-#^xhtml-dt
-#^xhtml-em
-#^xhtml-embed
-#^xhtml-fieldset
-#^xhtml-figcaption
-#^xhtml-figure
-#^xhtml-footer
-#^xhtml-form
-#^xhtml-h1
-#^xhtml-h2
-#^xhtml-h3
-#^xhtml-h4
-#^xhtml-h5
-#^xhtml-h6
-#^xhtml-head
-#^xhtml-header
-#^xhtml-hgroup
-#^xhtml-hr
-#^xhtml-html
-#^xhtml-i
-#^xhtml-iframe
-#^xhtml-img
-#^xhtml-input
-#^xhtml-ins
-#^xhtml-kbd
-#^xhtml-keygen
-#^xhtml-label
-#^xhtml-legend
-#^xhtml-li
-#^xhtml-link
-#^xhtml-main
-#^xhtml-map
-#^xhtml-mark
-#^xhtml-meta
-#^xhtml-meter
-#^xhtml-nav
-#^xhtml-noscript
-#^xhtml-object
-#^xhtml-ol
-#^xhtml-optgroup
-#^xhtml-option
-#^xhtml-output
-#^xhtml-p
-#^xhtml-param
-#^xhtml-pre
-#^xhtml-progress
-#^xhtml-q
-#^xhtml-rb
-#^xhtml-rp
-#^xhtml-rt
-#^xhtml-rtc
-#^xhtml-ruby
-#^xhtml-s
-#^xhtml-samp
-#^xhtml-script
-#^xhtml-section
-#^xhtml-select
-#^xhtml-small
-#^xhtml-source
-#^xhtml-span
-#^xhtml-strong
-#^xhtml-style
-#^xhtml-sub
-#^xhtml-sup
-#^xhtml-table
-#^xhtml-tbody
-#^xhtml-td
-#^xhtml-template
-#^xhtml-textarea
-#^xhtml-tfoot
-#^xhtml-th
-#^xhtml-thead
-#^xhtml-time
-#^xhtml-title
-#^xhtml-tr
-#^xhtml-track
-#^xhtml-u
-#^xhtml-ul
-#^xhtml-var
-#^xhtml-video
-#^xhtml-wbr
-
-(defmain [&rest args]
-  (def xmlhy-buffer sys.--stdout--)
-  (xhtml-html
-   (xhtml-head (xhtml-title "Sample xHTML"))
-   (xmlhy-crlf)
-   (xhtml-body (xhtml-h1 "Sample xHTML")
-               (xhtml-div {"id" "lorem1500"}
-                          (xhtml-p "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
- sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
- enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
- ut aliquip ex ea commodo consequat. Duis aute irure dolor in
- reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
- pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
- culpa qui officia deserunt mollit anim id est laborum."))))
-  (xmlhy-crlf))
+(xmlhy-tag xhtml-abbr)
+(xmlhy-tag xhtml-address)
+(xmlhy-tag xhtml-area)
+(xmlhy-tag xhtml-article)
+(xmlhy-tag xhtml-aside)
+(xmlhy-tag xhtml-audio)
+(xmlhy-tag xhtml-b)
+(xmlhy-tag xhtml-base)
+(xmlhy-tag xhtml-bdi)
+(xmlhy-tag xhtml-bdo)
+(xmlhy-tag xhtml-blockquote)
+(xmlhy-tag xhtml-body)
+(xmlhy-tag xhtml-br)
+(xmlhy-tag xhtml-button)
+(xmlhy-tag xhtml-canvas)
+(xmlhy-tag xhtml-caption)
+(xmlhy-tag xhtml-cite)
+(xmlhy-tag xhtml-code)
+(xmlhy-tag xhtml-col)
+(xmlhy-tag xhtml-colgroup)
+(xmlhy-tag xhtml-data)
+(xmlhy-tag xhtml-datalist)
+(xmlhy-tag xhtml-dd)
+(xmlhy-tag xhtml-del)
+(xmlhy-tag xhtml-dfn)
+(xmlhy-tag xhtml-div)
+(xmlhy-tag xhtml-dl)
+(xmlhy-tag xhtml-dt)
+(xmlhy-tag xhtml-em)
+(xmlhy-tag xhtml-embed)
+(xmlhy-tag xhtml-fieldset)
+(xmlhy-tag xhtml-figcaption)
+(xmlhy-tag xhtml-figure)
+(xmlhy-tag xhtml-footer)
+(xmlhy-tag xhtml-form)
+(xmlhy-tag xhtml-h1)
+(xmlhy-tag xhtml-h2)
+(xmlhy-tag xhtml-h3)
+(xmlhy-tag xhtml-h4)
+(xmlhy-tag xhtml-h5)
+(xmlhy-tag xhtml-h6)
+(xmlhy-tag xhtml-head)
+(xmlhy-tag xhtml-header)
+(xmlhy-tag xhtml-hgroup)
+(xmlhy-tag xhtml-hr)
+(xmlhy-tag xhtml-html)
+(xmlhy-tag xhtml-i)
+(xmlhy-tag xhtml-iframe)
+(xmlhy-tag xhtml-img)
+(xmlhy-tag xhtml-input)
+(xmlhy-tag xhtml-ins)
+(xmlhy-tag xhtml-kbd)
+(xmlhy-tag xhtml-keygen)
+(xmlhy-tag xhtml-label)
+(xmlhy-tag xhtml-legend)
+(xmlhy-tag xhtml-li)
+(xmlhy-tag xhtml-link)
+(xmlhy-tag xhtml-main)
+(xmlhy-tag xhtml-map)
+(xmlhy-tag xhtml-mark)
+(xmlhy-tag xhtml-meta)
+(xmlhy-tag xhtml-meter)
+(xmlhy-tag xhtml-nav)
+(xmlhy-tag xhtml-noscript)
+(xmlhy-tag xhtml-object)
+(xmlhy-tag xhtml-ol)
+(xmlhy-tag xhtml-optgroup)
+(xmlhy-tag xhtml-option)
+(xmlhy-tag xhtml-output)
+(xmlhy-tag xhtml-p)
+(xmlhy-tag xhtml-param)
+(xmlhy-tag xhtml-pre)
+(xmlhy-tag xhtml-progress)
+(xmlhy-tag xhtml-q)
+(xmlhy-tag xhtml-rb)
+(xmlhy-tag xhtml-rp)
+(xmlhy-tag xhtml-rt)
+(xmlhy-tag xhtml-rtc)
+(xmlhy-tag xhtml-ruby)
+(xmlhy-tag xhtml-s)
+(xmlhy-tag xhtml-samp)
+(xmlhy-tag xhtml-script)
+(xmlhy-tag xhtml-section)
+(xmlhy-tag xhtml-select)
+(xmlhy-tag xhtml-small)
+(xmlhy-tag xhtml-source)
+(xmlhy-tag xhtml-span)
+(xmlhy-tag xhtml-strong)
+(xmlhy-tag xhtml-style)
+(xmlhy-tag xhtml-sub)
+(xmlhy-tag xhtml-sup)
+(xmlhy-tag xhtml-table)
+(xmlhy-tag xhtml-tbody)
+(xmlhy-tag xhtml-td)
+(xmlhy-tag xhtml-template)
+(xmlhy-tag xhtml-textarea)
+(xmlhy-tag xhtml-tfoot)
+(xmlhy-tag xhtml-th)
+(xmlhy-tag xhtml-thead)
+(xmlhy-tag xhtml-time)
+(xmlhy-tag xhtml-title)
+(xmlhy-tag xhtml-tr)
+(xmlhy-tag xhtml-track)
+(xmlhy-tag xhtml-u)
+(xmlhy-tag xhtml-ul)
+(xmlhy-tag xhtml-var)
+(xmlhy-tag xhtml-video)
+(xmlhy-tag xhtml-wbr)

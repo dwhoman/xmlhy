@@ -1,7 +1,3 @@
-(def double-quote False)
-;;; double quotes will be used for XML attribute values if True; otherwise,
-;;; single quotes will be used.
-
 (defn concat [&rest elements]
   "Join all argument elements into a string."
   (.join "" elements))
@@ -14,7 +10,11 @@
   string sequences are joined together with colons. XML tag attributes
   must be strings."
   
-  (let [[quote-char (if double-quote "\"" "'")]
+  (let [[quote-char (if (in "&dq" attributes)
+                      (if (get attributes "&dq")
+                        "\""
+                        "'")
+                      "'")]
         [ns (if (in "&ns" attributes)
               (get attributes "&ns")
               None)]
@@ -36,7 +36,8 @@
            (.join " "
                   (genexpr (concat (str k) "=" quote-char (str v) quote-char)
                            [(, k v) (.items attributes)]
-                           (!= k "&ns")))]
+                           (and (!= k "&ns")
+                                (!= k "&dq"))))]
           [True
            ""])]]
     (, namespace attribute-str)))

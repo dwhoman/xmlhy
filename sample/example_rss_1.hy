@@ -1,15 +1,14 @@
-(import [xmlhy :as x]
-        [xmlhy-util]
-        [rss]
+(import [xmlhy.util]
+        [xmlhy.xmlhy :as x]
+        [xmlhy.rss]
         [sys])
-(require xmlhy rss)
+(require xmlhy.xmlhy xmlhy.rss)
 ;; produces http://www.rssboard.org/files/sample-rss-2.xml
 
-(setv xmlhy-util.double-quote True)
 (def xmlhy-buffer sys.--stdout--)
 (xmlhy-declare 1.0)
 (rss-rss
- {"version" "2.0" "a" "b"}
+ {"version" "2.0" "a" "b" "&dq" True}
  (rss-channel
   (rss-title "Liftoff News")
   (rss-link "http://liftoff.msfc.nasa.gov/")
@@ -45,4 +44,3 @@
    (rss-description "Compared to earlier spacecraft, the International Space Station has many luxuries, but laundry facilities are not one of them.  Instead, astronauts have other options.")
    (rss-pubDate "Tue, 20 May 2003 08:56:02 GMT")
    (rss-guid "http://liftoff.msfc.nasa.gov/2003/05/20.html#item570"))))
-(rss-rss {"x" "y"})

@@ -1,4 +1,4 @@
-(import [xmlhy.xmlhy :as x] [sys])
+(import [xmlhy.xmlhy] [sys])
 (require xmlhy.xmlhy)
 (def xmlhy-buffer sys.--stdout--)
 (xmlhy-declare "1.0")
@@ -9,4 +9,3 @@
         (xmlhy-crlf)(xmlhy-tab)
         (xmlhy "age" {"&ns" "p"} "42"))
 (xmlhy-crlf)
-

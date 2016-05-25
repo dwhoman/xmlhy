@@ -1,5 +1,5 @@
 (import [xmlhy.xmlhy :as x]
-        [xmlhy.xmlhy-util :as xh]
+        [xmlhy.util :as xh]
         [sys]
         [unittest [TestCase]]
         [test.support [run_unittest]]
@@ -130,7 +130,79 @@
    [test-generated-name
     (fn [self]
       (test-tag "<b:c:zzz\s+aaa='222'\s*>hello</b:c:zzz>"
-                (xmlhy (* 3 "z") {"&ns" ["b" "c"] (* 3 "a") (* 3 "2")} "hello")))]])
+                (xmlhy (* 3 "z") {"&ns" ["b" "c"] (* 3 "a") (* 3 "2")} "hello")))]
+   [test-lone-tag-double
+    (fn [self]
+      (test-tag "<a\s*/>" (xmlhy "a" {"&dq" True})))]
+   [test-empty-string-double
+    (fn [self]
+      (test-tag "<a\s*></a>" (xmlhy "a" {"&dq" True} "")))]
+   [test-string-double
+    (fn [self]
+      (test-tag "<a\s*>hello</a>" (xmlhy "a" {"&dq" True} "hello")))]
+   [test-empty-attributes-double
+    (fn [self]
+      (test-tag "<a\s*/>" (xmlhy "a" {"&dq" True})))]
+   [test-empty-attributes-and-empty-string-double
+    (fn [self]
+      (test-tag "<a\s*></a>" (xmlhy "a" {"&dq" True} "")))]
+   [test-empty-attributes-and-string-double
+    (fn [self]
+      (test-tag "<a\s*>hello</a>" (xmlhy "a" {"&dq" True} "hello")))]
+   [test-ns-and-string-1-double
+    (fn [self]
+      (test-tag "<b:a\s*>hello</b:a>" (xmlhy "a" {"&ns" "b" "&dq" True} "hello")))]
+   [test-ns-and-string-2-double
+    (fn [self]
+      (test-tag "<b:c:a\s*>hello</b:c:a>" (xmlhy "a" {"&ns" "b:c" "&dq" True} "hello")))]
+   [test-ns-and-string-3-double
+    (fn [self]
+      (test-tag "<b:c:a\s*>hello</b:c:a>" (xmlhy "a" {"&ns" ["b" "c"] "&dq" True} "hello")))]
+   [test-ns-attributes-and-string-double
+    (fn [self]
+      (test-tag "<b:c:a\s+class=\"world\"\s*>hello</b:c:a>"
+                (xmlhy "a" {"&ns" ["b" "c"] "class" "world" "&dq" True} "hello")))]
+   [test-ns-attributes-double
+    (fn [self]
+      (test-tag "<b:c:a\s+class=\"world\"\s*/>"
+                (xmlhy "a" {"&ns" ["b" "c"] "class" "world" "&dq" True})))]
+   [test-nested-tags-double
+    (fn [self]
+      (test-tag "<b:c:a\s+class=\"world\"\s*><d:e:f\s*/></b:c:a>"
+                (xmlhy "a" {"&ns" ["b" "c"] "class" "world" "&dq" True}
+                        (xmlhy "f" {"&ns" ["d" "e"] "&dq" True}))))]
+   [test-mixed-inputs-1-double         ;ignore contents after "hello", produces stderr output
+    (fn [self]
+      (test-tag "<a\s*>hello</a>" (xmlhy "a" {"&dq" True} "hello" (xmlhy-crlf))))]
+   [test-mixed-inputs-2-double         ;ignore strings, produces stderr output
+    (fn [self]
+      (test-tag "<a\s*>\n</a>" (xmlhy "a" {"&dq" True} (xmlhy-crlf) "hello")))]
+   [test-generated-string-double
+    (fn [self]
+      (test-tag "<a\s*>111</a>" (xmlhy "a" {"&dq" True} (xmlhy-print (* 3 "1")))))]
+   [test-generated-string-bad-double
+    (fn [self]
+      (test-tag "<a\s*></a>" (xmlhy "a" {"&dq" True} (* 3 "1"))))]
+   [test-generated-attribute-1-double
+    (fn [self]
+      (test-tag "<b:c:a\s+class=\"111\"\s*>hello</b:c:a>"
+                (xmlhy "a" {"&ns" ["b" "c"] "class" (* 3 "1") "&dq" True} "hello")))]
+   [test-generated-attribute-2-double
+    (fn [self]
+      (test-tag "<b:c:a\s+aaa=\"222\"\s*>hello</b:c:a>"
+                (xmlhy "a" {"&ns" ["b" "c"] (* 3 "a") (* 3 "2") "&dq" True} "hello")))]
+   [test-generated-name-double
+    (fn [self]
+      (test-tag "<b:c:zzz\s+aaa=\"222\"\s*>hello</b:c:zzz>"
+                (xmlhy (* 3 "z") {"&ns" ["b" "c"] (* 3 "a") (* 3 "2") "&dq" True} "hello")))]
+   [test-ampersand-tag
+    (fn [self]
+      (xmlhy-tag amp-a&b)
+      (test-tag "<a_b />" (amp-a&b)))]
+   [test-dash-tag
+    (fn [self]
+      (xmlhy-tag amp-a-b)
+      (test-tag "<a-b />" (amp-a-b)))]])
 
 (defmain [&rest args]
   (run_unittest Test))

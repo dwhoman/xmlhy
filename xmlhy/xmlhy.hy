@@ -1,4 +1,5 @@
-(import [xmlhy-util] [sys [--stderr--]])
+(import [xmlhy.util] [sys [--stderr--]]
+        [hy.core.language [is-instance is-string]])
 
 ;; Generates print statements that return xml tags with the tag NAME.
 ;; CONTENTS is broken down into an `attributes' dictionary and `body'
@@ -9,9 +10,9 @@
 ;; variable `xmlhy-buffer' must be set, specifying the print
 ;; statement's print file.
 (defmacro xmlhy [name &rest contents]
-  (let [[helper (gensym)]
-        [attributes {}]
+  (let [[attributes {}]
         [body contents]
+        [helper (gensym)]
         [ename (gensym)]]
     (when (and (< 0 (len contents))
                (or (instance? hy.models.dict.HyDict (first contents))
@@ -28,16 +29,19 @@
     (cond
      [(empty? body)            ; explicity none, <foo />
       `(do
-        (import [xmlhy-util :as ~helper])
+        (string? "")           ; hack to prevent pyc from optimizing things away
+        (import [xmlhy.util :as ~helper])
         ((. ~helper print-to-buffer) (apply (. ~helper single-tag) [~name] ~attributes) xmlhy-buffer))]
      [(and (< 0 (len body)) (string? (first body)))
       `(do ; text tag
-        (import [xmlhy-util :as ~helper])
+        (string? "")           ; hack to prevent pyc from optimizing things away
+        (import [xmlhy.util :as ~helper])
         ((. ~helper print-to-buffer)
          (apply (. ~helper text-tag) [~name ~(first body)] ~attributes) xmlhy-buffer))]
      [True                     ; has child nodes
       `(let [[~ename ~name]]   ; in case name is a stateful expression
-        (import [xmlhy-util :as ~helper])
+        (string? "")           ; hack to prevent pyc from optimizing things away
+        (import [xmlhy.util :as ~helper])
         ((. ~helper print-to-buffer)
          (apply (. ~helper begin-tag) [~ename] ~attributes) xmlhy-buffer)
         ~@(list body)
@@ -57,6 +61,9 @@
     `(defmacro ~tag-ns-name [&rest body]
        ;; functions will not exist at run-time
        (defn ~tag-ns-name [])
+       ;; attempted to move ~replace to xmlhy.util but had referencing
+       ;; problems, having it here only adds to compile time; no need
+       ;; to factor out
        (defn ~replace [string]
          (let [[result []]]
            (for [c string]
@@ -98,15 +105,18 @@
     (cond
      [(empty? content)
       `(do
-        (import [xmlhy-util :as ~helper])
+        (string? "")           ; hack to prevent pyc from optimizing things away
+        (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper "<!--  -->" xmlhy-buffer))]
      [(and (< 0 (len content)) (string? (first content)))
       `(do
-        (import [xmlhy-util :as ~helper])
+        (string? "")           ; hack to prevent pyc from optimizing things away
+        (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper (.concat ~helper "<!--" ~(first content) "-->") xmlhy-buffer))]
      [True
       `(do
-        (import [xmlhy-util :as ~helper])
+        (string? "")           ; hack to prevent pyc from optimizing things away
+        (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper "<!--" xmlhy-buffer)
         ~@(list content)
         (.print-to-buffer ~helper "-->" xmlhy-buffer))])))
@@ -116,26 +126,30 @@
 (defmacro xmlhy-print [to-print]
   (with-gensyms [helper]
     `(do
-      (import [xmlhy-util :as ~helper])
+      (string? "")           ; hack to prevent pyc from optimizing things away
+      (import [xmlhy.util :as ~helper])
       ((. ~helper print-to-buffer) ~to-print xmlhy-buffer))))
 
 ;;; White space is meaningful in XML.
 (defmacro xmlhy-crlf [&optional [spaces '1]]
   (with-gensyms [helper]
     `(do
-      (import [xmlhy-util :as ~helper])
+      (string? "")           ; hack to prevent pyc from optimizing things away
+      (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* "\n" (int ~spaces)) xmlhy-buffer))))
 
 (defmacro xmlhy-tab [&optional [tabs '1]]
   (with-gensyms [helper]
     `(do
-      (import [xmlhy-util :as ~helper])
+      (string? "")           ; hack to prevent pyc from optimizing things away
+      (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* "\t" (int ~tabs)) xmlhy-buffer))))
 
 (defmacro xmlhy-space [&optional [spaces '1]]
   (with-gensyms [helper]
     `(do
-      (import [xmlhy-util :as ~helper])
+      (string? "")           ; hack to prevent pyc from optimizing things away
+      (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* " " (int ~spaces)) xmlhy-buffer))))
 
 ;;; Create an xml declaration statement. VERSION is an XML version
@@ -151,7 +165,7 @@
          (.append ~args (, "encoding" ~g-encoding)))
        (when (instance? bool ~g-standalone)
          (.append ~args (, "standalone" (if (= ~True ~g-standalone) "yes" "no"))))
-       (import [xmlhy-util :as ~helper])
+       (import [xmlhy.util :as ~helper])
        ((. ~helper print-to-buffer) (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
 
 ;;; Create <?xml-stylesheet?>. href, type, title, media, and charset
@@ -178,7 +192,7 @@
          (.append ~args (, "charset" ~g-charset)))
        (when (instance? bool ~g-alternate)
          (.append ~args (, "alternate" (if (= ~True ~g-href) "yes" "no"))))
-       (import [xmlhy-util :as ~helper])
+       (import [xmlhy.util :as ~helper])
        ((. ~helper print-to-buffer) (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
 
 (defclass WritableObject []

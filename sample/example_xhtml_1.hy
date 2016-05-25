@@ -1,12 +1,10 @@
-(import [xmlhy.xmlhy :as x]
-        [xmlhy.xmlhy-util]
+(import [xmlhy.util]
+        [xmlhy.xmlhy :as x]
         [xmlhy.xhtml]
         [sys])
 
-(require xmlhy.xmlhy)
-(require xmlhy.xhtml)
+(require xmlhy.xmlhy xmlhy.xhtml)
 (def xmlhy-buffer sys.--stdout--)
-(setv xmlhy.xmlhy-util.double-quote True)
 (xhtml-html
  (xhtml-head (xhtml-title "Sample xHTML"))
  (xmlhy-crlf)
