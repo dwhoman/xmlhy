@@ -3,13 +3,13 @@
         [xmlhy.atom]
         [xmlhy.xhtml]
         [sys]
+        [xml.dom.minidom [parse parseString]]
         [time])
 
-(setv start_time (.time time))
+(setv start-time (.time time))
 (require xmlhy.xmlhy xmlhy.atom xmlhy.xhtml)
 ;; produces example from https://tools.ietf.org/html/rfc4287
-
-(def xmlhy-buffer sys.--stdout--)
+(setv xmlhy-buffer (x.WritableObject))
 (xmlhy-declare 1.0 "utf-8")
 (atom-feed
  {"xmlns" "http://www.w3.org/2005/Atom" "&dq" True}
@@ -50,8 +50,21 @@ went into making this effortless")
     {"xmlns" "http://www.w3.org/1999/xhtml" "&dq" True}
     (xhtml-p
      (xhtml-i "[Update: The Atom draft is finished.]"))))))
+(setv total-time (- (.time time) start-time))
 
-(print (% "--- %s seconds ---" (- (.time time) start_time)))
+;;; TODO; another project
+;; (defun verify-atom []
+;;   (setv correct (parse "atom_1.xml"))
+;;   (setv this-dom (parseString (xmlhy-buffer.concat)))
+;;   (when (or (< 1 (len correct.childNodes))
+;;             (< 1 (len this-dom.childNodes))))
+;;   (compare-doms correct.firstChild this-dom.firstChild))
+
+(defmain [&rest args]
+  (print (xmlhy-buffer.concat))
+  (for [arg args]
+    (when (= arg "-t")
+      (print (+ (str (* total-time 1000)) " ms")))))
 
 ;; <?xml version="1.0" encoding="utf-8"?>
 ;;    <feed xmlns="http://www.w3.org/2005/Atom">
