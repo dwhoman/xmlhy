@@ -90,6 +90,23 @@
 <node attrib="val"><a /><b >Text</b></node>
    #+END_SRC
 
+   Explicitly putting quotes around attribute values will override the
+   default quoting behavior.
+   #+BEGIN_SRC hy
+(xmlhy "node" {"attrib" "\"val\"" "attrib2" "val2"} (xmlhy "a") (xmlhy "b" "Text"))
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<node attrib="val" attrib2='val2'><a /><b >Text</b></node>
+   #+END_SRC
+   #+BEGIN_SRC hy
+(xmlhy "node" {"attrib" "'val'" "attrib2" "val2" "&dq" True} (xmlhy "a") (xmlhy "b" "Text"))
+   #+END_SRC
+   becomes
+   #+BEGIN_SRC html
+<node attrib='val' attrib2="val2"><a /><b >Text</b></node>
+   #+END_SRC
+
    Mixing text and tags is not allowed, so
    #+BEGIN_SRC hy
 (xmlhy "node" {"attrib" "val"} "a" (xmlhy "b"))

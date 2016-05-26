@@ -118,6 +118,29 @@ becomes
 
     <node attrib="val"><a /><b >Text</b></node>
 
+Explicitly putting quotes around attribute values will override the
+default quoting behavior.
+
+.. code-block:: hy
+
+    (xmlhy "node" {"attrib" "\"val\"" "attrib2" "val2"} (xmlhy "a") (xmlhy "b" "Text"))
+
+becomes
+
+.. code-block:: html
+
+    <node attrib="val" attrib2='val2'><a /><b >Text</b></node>
+
+.. code-block:: hy
+
+    (xmlhy "node" {"attrib" "'val'" "attrib2" "val2" "&dq" True} (xmlhy "a") (xmlhy "b" "Text"))
+
+becomes
+
+.. code-block:: html
+
+    <node attrib='val' attrib2="val2"><a /><b >Text</b></node>
+
 Mixing text and tags is not allowed, so
 
 .. code-block:: hy
@@ -231,4 +254,3 @@ To install in a test environment, follow the procedures similar to
 
        cd xmlhy/
        make install
-

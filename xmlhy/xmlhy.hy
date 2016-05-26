@@ -1,6 +1,6 @@
 (import [xmlhy.util] [sys [--stderr--]])
 
-;; Generates print statements that return xml tags with the tag NAME.
+;; Generates print statements that return XML tags with the tag NAME.
 ;; CONTENTS is broken down into an `attributes' dictionary and `body'
 ;; content to go in between the tags. The tag's namespace can be
 ;; specified using the special key, "&ns", in the attributes
@@ -26,7 +26,7 @@
         (when (some string? body)
           (print (% "xmlhy ignoring string contents for %s" name) :file --stderr--))))
     (cond
-     [(empty? body)            ; explicity none, <foo />
+     [(empty? body)            ; explicitly none, <foo />
       `(do
         (import [xmlhy.util :as ~helper])
         (.print-to-buffer ~helper (apply (. ~helper single-tag) [~name] ~attributes) xmlhy-buffer))]
@@ -43,15 +43,15 @@
         ~@(list body)
         (.print-to-buffer ~helper (apply (. ~helper end-tag) [~ename] ~attributes) xmlhy-buffer))])))
 
-;;; macro for defining new xml tag functions
+;;; macro for defining new XML tag functions
 
 ;;; (xmlhy-tag html-html) will create a macro (html-html) that will
 ;;; output <html/> type tags. Dashes will be preserved but underscores
-;;; will be converted to dashes, since Hy converts dashes to
-;;; underscores in non-strings. So if you want an underscore, use an
-;;; ampersand. So a-b-c and a_b_c become the macro a-b-c or a_b_c and
-;;; prints the tag b-c.  Similarly, a-b&c become the macro a-b&c and
-;;; prints b_c.
+;;; will be converted to dashes; since Hy converts dashes to
+;;; underscores in non-strings, this macro converts them back. So if
+;;; you want an underscore, use an ampersand. So a-b-c and a_b_c
+;;; become the macro a-b-c or a_b_c and prints the tag b-c.
+;;; Similarly, a-b&c become the macro a-b&c and prints b_c.
 (defmacro xmlhy-tag [tag-ns-name]
   (with-gensyms [name replace]
     `(defmacro ~tag-ns-name [&rest body]
@@ -88,7 +88,7 @@
     (.join "" result)))
 
 ;;; Similar to xmlhy. The user might want to create IE conditional
-;;; comments or some other commented xml.
+;;; comments or some other commented XML, maybe for debugging.
 (defmacro xmlhy-comment [&rest content]
   ;; check content types
   (when (< 0 (len content))
@@ -148,9 +148,9 @@
       (import [xmlhy.util :as ~helper])
       (.print-to-buffer ~helper (* " " (int ~spaces)) xmlhy-buffer))))
 
-;;; Create an xml declaration statement. VERSION is an XML version
+;;; Create an XML declaration statement. VERSION is an XML version
 ;;; string, usually '1.0' or '1.1'. ENCODING is a string. STANDALONE
-;;; is a boolean. Prints to xmlhy-buffer.  None can be used for any
+;;; is a Boolean. Prints to xmlhy-buffer.  None can be used for any
 ;;; parameter, None parameters will not be included.
 (defmacro xmlhy-declare [version &optional [encoding 'nil] [standalone 'nil]]
   (with-gensyms [g-version g-encoding g-standalone helper args]
@@ -165,7 +165,7 @@
        (.print-to-buffer ~helper (apply (. ~helper xml-instruction) ~args) xmlhy-buffer))))
 
 ;;; Create <?xml-stylesheet?>. href, type, title, media, and charset
-;;; are strings.  alternate is a boolean.  None can be used for any
+;;; are strings.  alternate is a Boolean.  None can be used for any
 ;;; parameter, None parameters will not be included.
 (defmacro xmlhy-stylesheet [&optional [href 'nil] [type 'nil] [title 'nil] [media 'nil] [charset 'nil] [alternate 'nil]]
   (with-gensyms [g-href g-type g-title g-media g-charset g-alternate helper args]
@@ -194,7 +194,6 @@
 (defclass WritableObject []
   "Buffer that print can be redirected to. The print output is stored
   in its `content' variable."
-  
   [[--init-- (fn [self]
                (setv self.content [])
                None)]
